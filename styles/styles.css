@@ -1,0 +1,14 @@
+.btn-info, .btn-alert{
+ margin-top:30px;
+ margin-bottom:10px;
+ padding-top:30px ;
+ padding-bottom: 30px;
+}
+
+.glyphicon-arrow-left{
+  margin-right:20px;
+  font-size: 20px;
+}
+.btn-alert{
+ 
+}
