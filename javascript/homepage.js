@@ -78,7 +78,7 @@ $("body").on("click", "#newPatient", function(){
   </div>\
   <div class="form-group">\
     <div class="col-sm-10">\
-      <button type="submit" class="btn btn-lg btn-default">Create New Patient</button>\
+      <button type="submit" id="create" class="btn btn-lg btn-default">Create New Patient</button>\
     </div>\
   </div>')
 });
