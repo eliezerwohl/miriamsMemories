@@ -27,8 +27,8 @@
   </div><!-- /.container-fluid -->
 </nav>
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3">
+  <div class="row"> 
+    <div class="col-md-6 col-md-offset-3 loginPanel">
       <div class="panel panel-default">
         <div class="panel-body">
           <form>
@@ -40,16 +40,18 @@
               <label for="exampleInputPassword1">Password</label>
               <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
             </div>
-             <button type="submit" class="btn btn-lg btn-default col-md-12">Sign In</button>
           </form>
+           <button type="submit" id="loginButton" class="btn btn-lg btn-default col-md-12">Sign In</button>
         </div>
       </div>
-
+    </div> <!-- div class login panel -->
+    <div class="target">
     </div>
-  </div>
-</div>
+  </div> <!-- row  -->
+</div> <!-- container fluid -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script type="text/javascript" src="javascript/homepage.js"></script>
 </body>
 </html>
