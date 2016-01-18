@@ -7,14 +7,11 @@ var col2 = $("<div>").addClass("col-md-6 btnDiv")
 var col3 = $("<div>").addClass("col-md-6 btnDiv")
 var col4 = $("<div>").addClass("col-md-6 btnDiv")
 var col5 = $("<div>").addClass("col-md-6 back").hide();
-  // need a search by client
-  // new client
-  // view all clients
-  // logout
-  var searchButton = $("<button>").addClass("btn btn-info btn-lg btn-block").append("search by patient").hide().fadeIn(3000);
-  var newPatientButton = $("<button>").addClass("btn btn-info btn-lg btn-block").append("new patient").hide().fadeIn(3500);
-  var viewAllButton = $("<button>").addClass("btn btn-info btn-lg btn-block").append("view all clients").hide().fadeIn(4000);
-  var logOutButton = $("<button>").addClass("btn btn-info btn-lg btn-block").append("logout").hide().fadeIn(4500);
+
+  var searchButton = $("<button>").addClass("btn btn-info btn-lg btn-block").append("search by patient").hide().fadeIn(2700);
+  var newPatientButton = $("<button>").addClass("btn btn-info btn-lg btn-block").append("new patient").hide().fadeIn(3000);
+  var viewAllButton = $("<button>").addClass("btn btn-info btn-lg btn-block").append("view all clients").hide().fadeIn(3300);
+  var logOutButton = $("<button>").addClass("btn btn-info btn-lg btn-block").append("logout").hide().fadeIn(3500);
   var backButton = $("<button>").addClass("btn btn-alert btn-lg btn-block").append("<span class='glyphicon glyphicon-arrow-left'></span>BACK");
 
   $(col1).append(searchButton);
@@ -32,5 +29,10 @@ var col5 = $("<div>").addClass("col-md-6 back").hide();
 
 $("body").on("click", ".btnDiv", function(){
   $(".btnDiv").not(this).hide();
-  $(".back").fadeIn(3000)
+  $(".back").fadeIn(1000)
+});
+
+$("body").on("click", ".back", function(){
+  $(this).hide()
+  $(".btnDiv").show(); 
 });
