@@ -6,7 +6,8 @@ var questions = ["what is your number",
 "do you really want to make me cry",
 ]
 
-$("body").on("click", "#create", function(){
+$("body").on("click", "#create", function(e){
+  e.preventDefault()
 $('.targetContent').empty()
 for (var i = 0; i < questions.length; i++) {
   questionCreate(questions[i]);
