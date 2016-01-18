@@ -1,3 +1,6 @@
+$("body").on("click", ".back", function(){
+  $(".targetContent").empty();
+});
 
 $("#loginButton").on("click", function(){
   $(".loginPanel").fadeOut();
@@ -9,7 +12,7 @@ var col4 = $("<div>").addClass("col-md-6 btnDiv")
 var col5 = $("<div>").addClass("col-md-6 back").hide();
 
   var searchButton = $("<button>").addClass("btn btn-info btn-lg btn-block").append("search by patient").hide().fadeIn(2700);
-  var newPatientButton = $("<button>").addClass("btn btn-info btn-lg btn-block").append("new patient").hide().fadeIn(3000);
+  var newPatientButton = $("<button id='newPatient'>").addClass("btn btn-info btn-lg btn-block").append("new patient").hide().fadeIn(3000);
   var viewAllButton = $("<button>").addClass("btn btn-info btn-lg btn-block").append("view all clients").hide().fadeIn(3300);
   var logOutButton = $("<button>").addClass("btn btn-info btn-lg btn-block").append("logout").hide().fadeIn(3500);
   var backButton = $("<button>").addClass("btn btn-alert btn-lg btn-block").append("<span class='glyphicon glyphicon-arrow-left'></span>BACK");
@@ -29,10 +32,31 @@ var col5 = $("<div>").addClass("col-md-6 back").hide();
 
 $("body").on("click", ".btnDiv", function(){
   $(".btnDiv").not(this).hide();
-  $(".back").fadeIn(1000)
+  $(".back").fadeIn(1000);
 });
 
 $("body").on("click", ".back", function(){
-  $(this).hide()
+  $(this).hide();
   $(".btnDiv").show(); 
+});
+$("body").on("click", "#newPatient", function(){
+  $(".targetContent").append('<form class="form-horizontal">\
+  <div class="form-group">\
+    <label for="inputEmail3" class="col-sm-2 control-label">First Name</label>\
+    <div class="col-sm-10">\
+      <input type="text" class="form-control" id="inputEmail3" placeholder="">\
+    </div>\
+  </div>\
+  <div class="form-group">\
+    <label for="inputPassword3" class="col-sm-2 control-label">Last Name</label>\
+    <div class="col-sm-10">\
+      <input type="text" class="form-control" id="inputPassword3" placeholder="">\
+    </div>\
+  </div>\
+  <div class="form-group">\
+    <div class="col-sm-offset-2 col-sm-10">\
+      <button type="submit" class="btn btn-default">Create New Patient</button>\
+    </div>\
+  </div>\
+</form>')
 });
