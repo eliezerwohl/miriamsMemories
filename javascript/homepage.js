@@ -1,5 +1,5 @@
 $("body").on("click", ".back", function(){
-  $(".targetContent").empty();
+  $(".content").empty();
 });
 $("#loginButton").on("click", function(){
   $(".loginPanel").fadeOut().empty();
@@ -20,9 +20,9 @@ $("#loginButton").on("click", function(){
   $(colLogOut).append(logOutButton);
   $(colBackButton).append(backButton);
 
-  $('.target').append(colBackButton)
-  .append(colSearch)
+  $('.menu').append(colBackButton)
   .append(colNewPatient)
+  .append(colSearch)
   .append(colViewAll)
   .append(colLogOut);
 });
@@ -45,7 +45,7 @@ $("body").on("click", ".back", function(e){
 $("body").on("click", "#newPatient", function(e){
   e.preventDefault()
   $("#newPatient").prop('disabled',true);
-  $(".targetContent").append('<div class="form-group">\
+  $(".content").append('<div class="form-group">\
     <label for="inputEmail3" class="col-sm-3 control-label">First Name</label>\
     <div class="col-sm-9">\
       <input type="text" class="form-control" id="inputEmail3" placeholder="">\
