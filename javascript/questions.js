@@ -9,7 +9,7 @@ var questions = ["what is your number",
 
 $("body").on("click", "#create", function(e){
   e.preventDefault()
-  $('.targetContent').empty()
+  $('.content').empty()
   for (var i = 0; i < questions.length; i++) {
     questionCreate(questions[i], [i]);
   }
@@ -17,9 +17,9 @@ $("body").on("click", "#create", function(e){
   var building = '<div class="form-group"> <label for="clientQuestion' + number + '" class="col-sm-12 control-label">' + data +'</label>\
     <input type="text" class="form-control" id="clientQuestion' + number + '" placeholder="">\
     </div>';
-  $(".targetContent").append(building);
+  $(".content").append(building);
   }
- $(".targetContent").append('<button id="save">save</button>');
+ $(".content").append('<button id="save">save</button>');
 });
 
 $("body").on("click", "#save", function(e){
