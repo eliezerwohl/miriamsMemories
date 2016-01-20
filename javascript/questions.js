@@ -9,6 +9,11 @@ var questions = ["what is your number",
 
 $("body").on("click", "#create", function(e){
   e.preventDefault()
+  var input = $("input").length;
+  for (var i = 0; i < input; i++) {
+    var clientQuestion = $("#newClient" + [i]).val();
+    console.log(clientQuestion);
+  }
   $('.content').empty()
   for (var i = 0; i < questions.length; i++) {
     questionCreate(questions[i], [i]);
