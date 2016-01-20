@@ -1,4 +1,5 @@
 $("body").on("click", ".back", function(){
+  $(".btnDiv  ").fadeTo("1000", 1.0);
   $(".content").empty();
 });
 $("#loginButton").on("click", function(){
@@ -6,12 +7,12 @@ $("#loginButton").on("click", function(){
   var colSearch = $("<div>").addClass("col-md-6 btnDiv")
   var colNewPatient = $("<div id='newPatient'>").addClass("col-md-6 btnDiv")
   var colViewAll = $("<div>").addClass("col-md-6 btnDiv")
-  var colLogOut = $("<div>").addClass("col-md-6 btnDiv")
+  var colLogOut = $("<div id='logout'>").addClass("col-md-6 btnDiv")
   var colBackButton = $("<div>").addClass("col-md-6 back").hide();
-  var searchButton = $("<button>").addClass("btn btn-info btn-lg btn-block").append("search by patient").hide().fadeIn(2700);
-  var newPatientButton = $("<button>").addClass("btn btn-info btn-lg btn-block").append("new patient").hide().fadeIn(3000);
-  var viewAllButton = $("<button>").addClass("btn btn-info btn-lg btn-block").append("view all patients").hide().fadeIn(3300);
-  var logOutButton = $("<button id='logout'>").addClass("btn btn-info btn-lg btn-block").append("logout").hide().fadeIn(3500);
+  var newPatientButton = $("<button>").addClass("btn btn-info btn-lg btn-block").append("new patient").hide().fadeIn(1000);
+  var searchButton = $("<button>").addClass("btn btn-info btn-lg btn-block").append("search by patient").hide().fadeIn(1500);
+  var viewAllButton = $("<button>").addClass("btn btn-info btn-lg btn-block").append("view all patients").hide().fadeIn(2000);
+  var logOutButton = $("<button>").addClass("btn btn-info btn-lg btn-block").append("logout").hide().fadeIn(2500);
   var backButton = $("<button>").addClass("btn btn-alert btn-lg btn-block").append("<span class='glyphicon glyphicon-arrow-left'></span>BACK");
 
   $(colSearch).append(searchButton);
@@ -33,6 +34,7 @@ $("body").on("click", "#logout", function(){
 $("body").on("click", ".btnDiv", function(e){
    e.preventDefault()
   $(".btnDiv").not(this).hide();
+  $(this).fadeTo(1000, 0.5);
   $(".back").fadeIn(1000);
 });
 
@@ -63,9 +65,4 @@ $("body").on("click", "#newPatient", function(e){
   $(".content").append(building);
   }
   $(".content").append('<button type="submit" id="create" class="btn btn-lg btn-default">Create New Patient</button>') 
-  var input = $("input").length;
-  for (var i = 0; i < input; i++) {
-    var clientQuestion = $("#newClient" + [i]).val();
-    console.log(clientQuestion);
-  }
 });
