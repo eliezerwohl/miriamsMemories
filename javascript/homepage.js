@@ -64,5 +64,5 @@ $("body").on("click", "#newPatient", function(e){
     </div>';
   $(".content").append(building);
   }
-  $(".content").append('<button type="submit" id="create" class="col-lg-3 col-sm-12 btn btn-lg btn-primary">Create New Patient</button>') 
+  $(".content").append('<button type="submit" id="create" class="col-lg-3 col-md-12 btn btn-lg btn-primary"><span class="glyphicon glyphicon-ok"> </span>Create New Patient</button>') 
 });
