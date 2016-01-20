@@ -14,7 +14,6 @@ $("#loginButton").on("click", function(){
   var viewAllButton = $("<button>").addClass("btn btn-info btn-lg btn-block").append("view all patients").hide().fadeIn(2000);
   var logOutButton = $("<button>").addClass("btn btn-info btn-lg btn-block").append("logout").hide().fadeIn(2500);
   var backButton = $("<button>").addClass("btn btn-alert btn-lg btn-block").append("<span class='glyphicon glyphicon-arrow-left'></span>BACK");
-
   $(colSearch).append(searchButton);
   $(colNewPatient).append(newPatientButton);
   $(colViewAll).append(viewAllButton);
@@ -46,6 +45,7 @@ $("body").on("click", ".back", function(e){
 });
 $("body").on("click", "#newPatient", function(e){
   e.preventDefault()
+  $(".content").empty();
   $("#newPatient").prop('disabled',true);
   var questions = ["First Name",
   "Last Name",
@@ -64,5 +64,5 @@ $("body").on("click", "#newPatient", function(e){
     </div>';
   $(".content").append(building);
   }
-  $(".content").append('<button type="submit" id="create" class="btn btn-lg btn-default">Create New Patient</button>') 
+  $(".content").append('<button type="submit" id="create" class="col-lg-3 col-sm-12 btn btn-lg btn-primary">Create New Patient</button>') 
 });
