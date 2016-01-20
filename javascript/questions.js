@@ -24,7 +24,7 @@ $("body").on("click", "#create", function(e){
     </div>';
   $(".content").append(building);
   }
- $(".content").append('<button id="save">save</button>');
+ $(".content").append('<button type="submit" id="save" class="col-lg-3 col-sm-12 btn btn-lg btn-primary">save</button>');
 });
 
 $("body").on("click", "#save", function(e){
@@ -35,4 +35,12 @@ $("body").on("click", "#save", function(e){
     var clientQuestion = $("#clientQuestion" + [i]).val();
     console.log(clientQuestion);
   };
+  $(".content").empty();
+  $("#newPatient").fadeTo(1000, 1.0).prop('disabled', true);
+  $(".btnDiv").prop('disabled', false);
+  $(".content").append('<div class="jumbotron">\
+  <div class="container">\
+   <h3>Save Sucessfull.  To create a new patient file, click the "New Patient" button above.  Otherwise, click the "Back" Button</h3>\
+  </div>\
+</div>')
 });
