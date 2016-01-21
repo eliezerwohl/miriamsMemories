@@ -3,7 +3,12 @@
  margin-bottom:10px;
  padding-top:30px ;
  padding-bottom: 30px;
- font-size: 2em;
+ font-size: 1.75em;
+}
+
+#loginButton{
+  margin-bottom: 20px;
+  margin-top: 10px;
 }
 
 .glyphicon-arrow-left{
