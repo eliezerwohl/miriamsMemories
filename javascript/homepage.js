@@ -60,7 +60,7 @@ $("body").on("click", "#newPatient", function(e){
   }
   function questionCreate(data, number){
   var building = '<div class="form-group"> <label for="newClient' + number + '" class="col-sm-12 control-label">' + data +'</label>\
-    <input type="text" class="form-control" id="newClient' + number + '" placeholder="">\
+    <input type="text" class="form-control newPatientDetails" id="newClient' + number + '" placeholder="">\
     </div>';
   $(".content").append(building);
   }
