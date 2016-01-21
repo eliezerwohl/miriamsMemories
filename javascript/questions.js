@@ -9,7 +9,7 @@ var questions = ["what is your number",
 
 $("body").on("click", "#create", function(e){
   e.preventDefault()
-  var input = $("input").length;
+  var input = $(".newPatientDetails").length;
   for (var i = 0; i < input; i++) {
     var clientQuestion = $("#newClient" + [i]).val();
     console.log(clientQuestion);
@@ -20,7 +20,7 @@ $("body").on("click", "#create", function(e){
   }
   function questionCreate(data, number){
   var building = '<div class="form-group"> <label for="clientQuestion' + number + '" class="col-sm-12 control-label">' + data +'</label>\
-    <input type="text" class="form-control" id="clientQuestion' + number + '" placeholder="">\
+    <input type="text" class="form-control patientQuestionInput" id="clientQuestion' + number + '" placeholder="">\
     </div>';
   $(".content").append(building);
   }
@@ -30,7 +30,7 @@ $("body").on("click", "#create", function(e){
 $("body").on("click", "#save", function(e){
   // gets the value of all the input fields for the questions
   e.preventDefault()
-  var input = $("input").length;
+  var input = $(".patientQuestionInput").length;
   for (var i = 0; i < input; i++) {
     var clientQuestion = $("#clientQuestion" + [i]).val();
     console.log(clientQuestion);
