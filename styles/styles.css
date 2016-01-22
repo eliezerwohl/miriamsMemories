@@ -1,4 +1,4 @@
-.btn-info, .btn-alert{
+.menu .btn-info, .btn-alert{
  margin-top:30px;
  margin-bottom:10px;
  padding-top:30px ;
@@ -20,9 +20,12 @@
 /*font-size:20px;*/
 margin-right:10px;
 }
-.btn-alert{
+.modal .btn {
+margin-bottom:10px;
  
 }
+
+
 
 .content{
   margin-top: 30px;
