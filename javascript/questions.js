@@ -2,8 +2,8 @@ var questions = ["what is your number",
   "what is your favorite color?",
   "what is the air speed velocity of an unamnned swallow with an egg in its mouth",
   "here's some more questions",
-  "do you really want to hurt me",
-  "do you really want to make me cry",
+  "how much is that dog in the window",
+  "the one with the waggly tail",
   "Ipsum pipsum liddy liddy bibsum"
 ]
 

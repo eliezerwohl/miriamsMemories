@@ -1,5 +1,5 @@
 $("body").on("click", ".back", function(){
-  $(".btnDiv  ").fadeTo("1000", 1.0);
+  $(".btnDiv ").fadeTo("1000", 1.0);
   $(".content").empty();
 });
 $("#loginButton").on("click", function(){

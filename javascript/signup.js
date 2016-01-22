@@ -28,5 +28,14 @@ $("body").on("click", "#saveSignIn", function(e){
     var signinData = $("#signupData" + [i]).val();
     console.log(signinData);
   };
-  $(".modal").modal('hide');
+  // $(".modal").modal('hide');
+  $(".modalTitle, .modalBody, .modalFooter").empty()
+  $(".modalTitle").append("Success!")
+  $(".modalBody").append('<div class="jumbotron">\
+    <h4>Your account has been successfully created!</h4> <h5>If you would like to link your account to an existing group, click the "Join Group" button. </h5> <h5> If you would like to create a new group, click the "New Group" button.  </h5><h5> Otherwise, click the "Back To Login" button.</h5>\
+    </div>')
+  $(".modalFooter")
+  .append('<button type="submit" id="joinGroup" class="col-lg-5 col-xs-12 btn btn-lg btn-primary"><span class="glyphicon glyphicon-user"> </span>Join Group</button>')
+  .append('<button type="submit" id="createGroup" class="col-lg-5 pull-right col-xs-12 btn btn-lg btn-info"><span class="glyphicon glyphicon-book"> </span>Create Group</button>')
+  .append('<button type="submit" data-dismiss="modal" id="backToLogin" class="col-lg-12 col-xs-12 btn btn-lg btn-default"><span class="glyphicon glyphicon-arrow-left"> </span>RETURN TO LOGIN</button>')
 });
