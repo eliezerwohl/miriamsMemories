@@ -6,6 +6,12 @@
  font-size: 1.75em;
 }
 
+.glyphicon-search{
+  font-size:4em;
+  top-margin:10px;
+}
+
+
 #loginButton{
   margin-bottom: 20px;
   margin-top: 10px;
@@ -16,6 +22,9 @@
 /*  font-size: 20px;*/
 }
 
+
+
+
 .glyphicon{
 /*font-size:20px;*/
 margin-right:10px;
@@ -24,7 +33,9 @@ margin-right:10px;
 margin-bottom:10px;
  
 }
-
+ .jumbotron{
+  bottom-padding:300px;
+}
 
 
 .content{

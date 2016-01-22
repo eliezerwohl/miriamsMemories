@@ -39,3 +39,16 @@ $("body").on("click", "#saveSignIn", function(e){
   .append('<button type="submit" id="createGroup" class="col-lg-5 pull-right col-xs-12 btn btn-lg btn-info"><span class="glyphicon glyphicon-book"> </span>Create Group</button>')
   .append('<button type="submit" data-dismiss="modal" id="backToLogin" class="col-lg-12 col-xs-12 btn btn-lg btn-default"><span class="glyphicon glyphicon-arrow-left"> </span>RETURN TO LOGIN</button>')
 });
+
+$("body").on("click", "#joinGroup, #createGroup", function(){
+$(".modalTitle, .modalBody, .modalFooter").empty()
+$(".modalTitle").append("Feature Coming Soon");
+// this is whre the join group inputs will go.  first need to get back end up and running before figuring out how to share data between multiple users
+  // $(".modalBody").append('<div class="form-group"> <label for="groupId" class="col-sm-12 control-label">Group ID</label>\
+  //  <input type="text" class="form-control signUpInput" id="groupId" placeholder="">\
+  //   </div>\
+  //   <div class="form-group"> <label for="groupPassword class="col-sm-12 control-label">Group Password</label>\
+  //   <input type="text" class="form-control signUpInput" id="signupData" placeholder="">\
+  //   </div>')
+$(".modalFooter").append('<button type="submit" data-dismiss="modal" id="joinGroupPageButton" class="col-xs-12 btn btn-lg btn-primary"><span class="glyphicon glyphicon-user"> </span>Back To Login</button>');
+});

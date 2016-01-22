@@ -4,7 +4,7 @@ $("body").on("click", ".back", function(){
 });
 $("#loginButton").on("click", function(){
   $(".loginPanel").fadeOut().empty();
-  var colSearch = $("<div>").addClass("col-md-6 btnDiv")
+  var colSearch = $("<div id='searchPatient'>").addClass("col-md-6 btnDiv")
   var colNewPatient = $("<div id='newPatient'>").addClass("col-md-6 btnDiv")
   var colViewAll = $("<div>").addClass("col-md-6 btnDiv")
   var colLogOut = $("<div id='logout'>").addClass("col-md-6 btnDiv")
