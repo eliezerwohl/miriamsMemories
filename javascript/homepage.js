@@ -1,3 +1,14 @@
+// navbar items
+$("#contact").on("click", function(e){
+    e.preventDefault()
+  $(".modalTitle, .modalBody, .modalFooter").empty();
+  $(".modal").modal();
+  $(".modalHeader").append("Contact Us");
+  $(".modalBody").append("coming soon");
+  $(".modalFooter").append('<button type="submit" id="endModal" data-dismiss="modal" class="col-lg-12 col-xs-12 btn btn-lg btn-primary pull-left"><span class="glyphicon glyphicon-arrow-left"> </span>BACK</button>');
+});
+
+
 $("body").on("click", ".back", function(){
   $(".btnDiv ").fadeTo("1000", 1.0);
   $(".content").empty();
@@ -34,6 +45,7 @@ $("body").on("click", ".btnDiv", function(e){
    e.preventDefault()
   $(".btnDiv").not(this).hide();
   $(this).fadeTo(1000, 0.5);
+  $(this).prop('disabled',true);
   $(".back").fadeIn(1000);
 });
 
@@ -43,10 +55,12 @@ $("body").on("click", ".back", function(e){
   $(".btnDiv").show(); 
   $(".btnDiv").prop('disabled',false);
 });
+
+
 $("body").on("click", "#newPatient", function(e){
   e.preventDefault()
   $(".content").empty();
-  $("#newPatient").prop('disabled',true);
+  // $("#newPatient").prop('disabled',true);
   var questions = ["First Name",
   "Last Name",
   "Address",
@@ -65,4 +79,5 @@ $("body").on("click", "#newPatient", function(e){
   $(".content").append(building);
   }
   $(".content").append('<button type="submit" id="create" class="col-lg-3 col-xs-12 btn btn-lg btn-primary"><span class="glyphicon glyphicon-ok"> </span>Create New Patient</button>') 
+
 });
