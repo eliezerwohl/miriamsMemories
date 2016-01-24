@@ -7,13 +7,10 @@
 }
 
 .glyphicon-search{
-  font-size:2em;
-  top-margin:10px;
+/*  font-size:2em;
+  top-margin:10px;*/
 }
 
-#clientSearchButton{
-  margin-top: 15px;
-}
 
 #loginButton{
   margin-bottom: 20px;
@@ -28,7 +25,7 @@
 
 
 
-.glyphicon{
+.glyphicon, .glyphicon-search{
 /*font-size:20px;*/
 margin-right:10px;
 }
@@ -36,15 +33,18 @@ margin-right:10px;
 margin-bottom:10px;
  
 }
- .jumbotron{
+/* .jumbotron{
   bottom-padding:300px;
-}
+}*/
 
 
 .content{
   margin-top: 30px;
 }
 
+#clientSearchButton{
+  margin-top: 15px;
+}
 body{
   margin-bottom: 20px
 }
