@@ -1,7 +1,6 @@
 $("body").on("click", "#searchPatient", function(){
   var searchQuestion = ["First Name",
-  "Last Name",
-  "Phone Number"]
+  "Last Name"]
 
   for (var i = 0; i < searchQuestion.length; i++) {
     questionCreate(searchQuestion [i], [i]);
@@ -12,7 +11,8 @@ $("body").on("click", "#searchPatient", function(){
     </div>';
   $(".content").append(building);
   }
-  $(".content").append('<span class="glyphicon glyphicon-search"></span>')
+  $(".content").append('<button type="submit" id="clientSearchButton" class="col-lg-3 col-xs-12 btn btn-lg btn-primary"><span class="glyphicon glyphicon-search">SEARCH</span></button>')
+  // $(".content").append('<button type="submit" id="create" class="col-lg-3 col-xs-12 btn btn-lg btn-primary"><span class="glyphicon glyphicon-search"> </span>Search</button>') 
 });
 
 // div class="input-group">
