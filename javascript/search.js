@@ -11,7 +11,7 @@ $("body").on("click", "#searchPatient", function(){
     </div>';
   $(".content").append(building);
   }
-  $(".content").append('<button type="submit" id="clientSearchButton" class="col-lg-3 col-xs-12 btn btn-lg btn-primary"><span class="glyphicon glyphicon-search">SEARCH</span></button>')
+  $(".content").append('<button type="submit" id="clientSearchButton" class="col-lg-3 col-xs-12 btn btn-lg btn-primary"><span class="glyphicon glyphicon-search"> SEARCH</span></button>')
   // $(".content").append('<button type="submit" id="create" class="col-lg-3 col-xs-12 btn btn-lg btn-primary"><span class="glyphicon glyphicon-search"> </span>Search</button>') 
 });
 
