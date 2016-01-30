@@ -5,6 +5,9 @@
  padding-bottom: 30px;
  font-size: 1.75em;
 }
+.modalFooter{
+  margin-top: 10px;
+}
 
 .glyphicon-search{
 /*  font-size:2em;
