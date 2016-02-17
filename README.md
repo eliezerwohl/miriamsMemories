@@ -7,4 +7,4 @@ Front-End
 Css3, HTML 5, bootstrap (bootswatch theme), javascript (jquery)
 
 Backend:
-Unknown so far.  MongoDB?  
+MySql, Node.js 
