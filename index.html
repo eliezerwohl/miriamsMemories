@@ -23,7 +23,10 @@
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-     
+    <ul class="nav navbar-nav navbar-right">
+      <li id="about"><a href="#">About Miriam's Memories</a></li>
+      <li id="contact"><a href="#">Contact Us</a></li>
+    </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
@@ -42,20 +45,37 @@
               <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
             </div>
           </form>
-           <button type="submit" id="loginButton" class="btn btn-lg btn-default col-xs-12">Sign In</button>
+            <button type="submit" id="loginButton" class="btn btn-lg btn-primary col-xs-12">Log In</button>
+            <button type="submit" id="signup" class="btn btn-lg btn-default col-xs-12">Sign Up</button>
         </div>
       </div>
     </div> <!-- div class login panel -->
-    <div class="target col-md-12">
+    <div class="menu col-md-12">
     </div>
-    <div class="targetContent col-md-12">
+    <div class="content col-md-12">
     </div>
+    <div class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title modalTitle"></h4>
+          </div>
+          <div class="modal-body modalBody">
+          </div>
+          <div class="modalFooter col-md-12">
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
   </div> <!-- row  -->
 </div> <!-- container fluid -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 <script type="text/javascript" src="javascript/homepage.js"></script>
-<script type="text/javascript" src="javascript/questions.js"></script>
+<script type="text/javascript" src="javascript/questions.js"></script>     
+<script type="text/javascript" src="javascript/signup.js"></script>
+<script type="text/javascript" src="javascript/search.js"></script>
 </body>
 </html>

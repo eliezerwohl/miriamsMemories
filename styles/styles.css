@@ -1,15 +1,53 @@
-.btn-info, .btn-alert{
+.menu .btn-info, .btn-alert{
  margin-top:30px;
  margin-bottom:10px;
  padding-top:30px ;
  padding-bottom: 30px;
- font-size: 2em;
+ font-size: 1.75em;
+}
+.modalFooter{
+  margin-top: 10px;
+}
+
+.glyphicon-search{
+/*  font-size:2em;
+  top-margin:10px;*/
+}
+
+
+#loginButton{
+  margin-bottom: 20px;
+  margin-top: 10px;
 }
 
 .glyphicon-arrow-left{
   margin-right:20px;
-  font-size: 20px;
+/*  font-size: 20px;*/
 }
-.btn-alert{
+
+
+
+
+.glyphicon, .glyphicon-search{
+/*font-size:20px;*/
+margin-right:10px;
+}
+.modal .btn {
+margin-bottom:10px;
  
+}
+/* .jumbotron{
+  bottom-padding:300px;
+}*/
+
+
+.content{
+  margin-top: 30px;
+}
+
+#clientSearchButton{
+  margin-top: 15px;
+}
+body{
+  margin-bottom: 20px
 }
