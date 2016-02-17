@@ -7,9 +7,16 @@ var Sequelize = require('sequelize');
 var sequelize = new Sequelize('rcb_authentication_db', 'root');
 var PORT = 3000;
 
+app.engine('handlebars', expressHandlebars({
+    defaultLayout: 'main'
+}));
 
 
-
+var routes = require('./controllers/mmController.js');
+app.use('/', routes);
+app.use('/create', routes);
+app.use('/update', routes);
+app.use('/delete', routes);
 
 // sequelize.sync().then(function(){
   app.listen(PORT, function() {
