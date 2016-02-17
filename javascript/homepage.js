@@ -59,7 +59,7 @@ $("body").on("click", ".btnDiv", function(e){
 });
 
 $("body").on("click", ".back", function(e){
-   e.preventDefault()
+   e.preventDefault();
   $(this).hide();
   $(".btnDiv").show(); 
   $(".btnDiv").prop('disabled',false);
@@ -67,7 +67,7 @@ $("body").on("click", ".back", function(e){
 
 
 $("body").on("click", "#newPatient", function(e){
-  e.preventDefault()
+  e.preventDefault();
   $(".content").empty();
   // $("#newPatient").prop('disabled',true);
   var questions = ["First Name",
@@ -87,6 +87,5 @@ $("body").on("click", "#newPatient", function(e){
     </div>';
   $(".content").append(building);
   }
-  $(".content").append('<button type="submit" id="create" class="col-lg-3 col-xs-12 btn btn-lg btn-primary"><span class="glyphicon glyphicon-ok"> </span>Create New Patient</button>') 
-
+  $(".content").append('<button type="submit" id="create" class="col-lg-3 col-xs-12 btn btn-lg btn-primary"><span class="glyphicon glyphicon-ok"> </span>Create New Patient</button>'); 
 });
