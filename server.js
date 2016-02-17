@@ -10,11 +10,11 @@ var PORT = 3000;
 app.engine('handlebars', expressHandlebars({
     defaultLayout: 'main'
 }));
-
+app.set('view engine', 'handlebars');
 
 var routes = require('./controllers/mmController.js');
 app.use('/', routes);
-app.use('/create', routes);
+app.use('/signUp', routes);
 app.use('/update', routes);
 app.use('/delete', routes);
 
