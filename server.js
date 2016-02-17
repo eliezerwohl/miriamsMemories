@@ -7,6 +7,9 @@ var Sequelize = require('sequelize');
 var sequelize = new Sequelize('rcb_authentication_db', 'root');
 var PORT = 3000;
 
+app.use(express.static(__dirname + '/public'));
+
+
 app.engine('handlebars', expressHandlebars({
     defaultLayout: 'main'
 }));
