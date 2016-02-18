@@ -4,7 +4,7 @@
     <div class="col-md-6 col-md-offset-3 loginPanel">
       <div class="panel panel-default">
         <div class="panel-body">
-          <form>
+          <form action="/logIn" method="post">
             <div class="form-group">
               <label for="exampleInputEmail1">Email address</label>
               <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
@@ -13,8 +13,9 @@
               <label for="exampleInputPassword1">Password</label>
               <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
             </div>
-          </form>
             <button type="submit" id="loginButton" class="btn btn-lg btn-primary col-xs-12">Log In</button>
+          </form>
+    
             <a href="/signup"><button type="submit" class="btn btn-lg btn-default col-xs-12">Sign Up</button></a>
         </div>
       </div>
