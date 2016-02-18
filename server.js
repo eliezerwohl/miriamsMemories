@@ -24,6 +24,7 @@ hbs.getPartials().then(function (partials) {
 var routes = require('./controllers/mmController.js');
 app.use('/', routes);
 app.use('/signUp', routes);
+app.use('/create/signUp', routes);
 app.use('/update', routes);
 app.use('/delete', routes);
 
