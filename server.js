@@ -15,6 +15,12 @@ app.engine('handlebars', expressHandlebars({
 }));
 app.set('view engine', 'handlebars');
 
+var hbs = require('express-handlebars').create();
+ 
+hbs.getPartials().then(function (partials) {
+    console.log(partials);
+    });
+
 var routes = require('./controllers/mmController.js');
 app.use('/', routes);
 app.use('/signUp', routes);
