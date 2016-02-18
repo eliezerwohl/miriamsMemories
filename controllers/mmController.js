@@ -3,12 +3,16 @@ var router = express.Router();
 
 
 router.get('/', function(req,res) {
-  
-  res.render("index")
+
+  res.render("index");
 });
 
 router.get('/signUp', function(req,res) {
-  res.send("you hit the main page!")
+  res.render("signUP");
+});
+
+router.post('/create/signUp', function(req,res) {
+  res.redirect("/");
 });
 
 
