@@ -2,6 +2,10 @@ var express = require('express');
 var router = express.Router();
 
 
+
+
+
+
 router.get('/', function(req,res) {
 
   res.render("index");
@@ -18,7 +22,7 @@ router.get('/loggedIn', function(req,res) {
 router.post('/logIn', function(req,res) {
   res.redirect("loggedIn");
 });
-router.post('/create/signUp', function(req,res) {
+router.post('/register', function(req,res) {
   res.redirect("/");
 });
 
