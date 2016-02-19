@@ -1,7 +1,10 @@
 var express = require('express');
 var app = express();
 var expressHandlebars = require('express-handlebars');
+
 var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }))
+
 var session = require('express-session');
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize('rcb_authentication_db', 'root');
@@ -22,17 +25,17 @@ hbs.getPartials().then(function (partials) {
     });
 
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize('MMUsersDB', 'root');
+// var sequelize = new Sequelize('MMUsersDB', 'root');
 
-var User = sequelize.define('User', {
-  email: {
-    type: Sequelize.STRING,
-    unique: true
-  },
-  password: Sequelize.STRING,
-  firstname: Sequelize.STRING,
-  lastname: Sequelize.STRING
-}); 
+// var User = sequelize.define('User', {
+//   email: {
+//     type: Sequelize.STRING,
+//     unique: true
+//   },
+//   password: Sequelize.STRING,
+//   firstname: Sequelize.STRING,
+//   lastname: Sequelize.STRING
+// }); 
 
 
 var routes = require('./controllers/mmController.js');
