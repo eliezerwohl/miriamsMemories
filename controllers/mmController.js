@@ -14,16 +14,7 @@ var User = sequelize.define('User', {
   lastname: Sequelize.STRING
 }); 
 
-var checkUser = function(username, password){
-  User.findOne({
-    where: {
-      email: username,
-      password:password 
-    }
-  }).then(function(results){
-    console.log(results)
-  })
-}
+
 
 
 // var bodyParser = require('body-parser');
@@ -46,10 +37,26 @@ router.get('/loggedIn', function(req,res) {
 });
 
 router.post('/logIn', function(req,res) {
-var email= req.body.email;
+var checkUser = function(username, password){
+  User.findOne({
+    where: {
+      email: username,
+      password:password 
+    }
+  }).then(function(results){
+    if(results){
+        console.log("Successfully logged in!");
+        res.redirect("/loggedIn")
+      } else {
+        console.log("Your login credentials do not work");
+        res.redirect("/")
+      }
+   }); 
+}
+
+var email= req.body.email ;
 var password = req.body.password;
   checkUser(email, password)
-  res.redirect("loggedIn");
 });
 router.post('/register', function(req,res) {
   console.log(req.body.email)
