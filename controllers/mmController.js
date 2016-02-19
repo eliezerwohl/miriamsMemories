@@ -40,8 +40,10 @@ router.post('/logIn', function(req,res) {
 router.post('/register', function(req,res) {
   console.log(req.body.email)
     User.create({
-            username: req.body.email,
-            password: req.body.password
+            email: req.body.email,
+            password: req.body.password,
+            firstname:req.body.firstname,
+            lastname:req.body.lastname
           }).then(function() {
             console.log("SAVED!");
           });
