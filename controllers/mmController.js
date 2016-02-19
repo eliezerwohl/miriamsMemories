@@ -14,6 +14,17 @@ var User = sequelize.define('User', {
   lastname: Sequelize.STRING
 }); 
 
+var checkUser = function(username, password){
+  User.findOne({
+    where: {
+      email: username,
+      password:password 
+    }
+  }).then(function(results){
+    console.log(results)
+  })
+}
+
 
 // var bodyParser = require('body-parser');
 // app.use(bodyParser.urlencoded({ extended: false }))
@@ -35,6 +46,9 @@ router.get('/loggedIn', function(req,res) {
 });
 
 router.post('/logIn', function(req,res) {
+var email= req.body.email;
+var password = req.body.password;
+  checkUser(email, password)
   res.redirect("loggedIn");
 });
 router.post('/register', function(req,res) {
