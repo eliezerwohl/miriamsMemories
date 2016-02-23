@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 var session = require('express-session');
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize('rcb_authentication_db', 'root');
-var PORT = 3000;
+var PORT = 8080;
 
 app.use(express.static(__dirname + '/public'));
 
@@ -45,8 +45,8 @@ app.use('/register', routes);
 app.use('/loggedIn', routes);
 app.use('/login', routes);
 
-sequelize.sync().then(function(){
+// sequelize.sync().then(function(){
   app.listen(PORT, function() {
     console.log("Listening on port %s", PORT);
   })
-});
+// });
