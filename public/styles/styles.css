@@ -1,4 +1,4 @@
-.menu .btn-info, .btn-alert{
+.btn-info, .btn-alert{
  margin-top:30px;
  margin-bottom:10px;
  padding-top:30px ;
@@ -9,6 +9,13 @@
   margin-top: 10px;
 }
 
+/*  $("#newPatient").fadeIn(1000);
+  $("#searchPatient").fadeIn(1500);
+  $("#viewALl").fadeIn(2000);
+  $("#logOut").fadeIn(2500);*/
+#newPatient, #searchPatient, #viewAll, #logOut {
+  display: none;
+}
 .glyphicon-search{
 /*  font-size:2em;
   top-margin:10px;*/
