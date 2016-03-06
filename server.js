@@ -113,7 +113,7 @@ function saltyhash(pass) {
 function isAuth(req, res, next) {
   if(req.isAuthenticated()){
     return next();}
-  res.redirect("/msg?no_authorization");
+  res.redirect("/?msg=no_authorization");
 }
 
 app.get('/', function(req,res) {
@@ -127,7 +127,7 @@ app.get('/register', function(req,res) {
   });
 });
 
-app.get('/loggedin', function(req,res) {
+app.get('/loggedin', isAuth, function(req,res) {
   res.render("loggedIn");
 });
 
