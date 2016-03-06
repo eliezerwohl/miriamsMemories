@@ -1,12 +1,22 @@
 var express = require('express');
 var app = express();
 var expressHandlebars = require('express-handlebars');
+var usern;
+//passport
+var passport = require('passport');
+var session = require('express-session');
+//bcrypt
+var bcrypt = require("bcryptjs");
 
+//bodyParser
+require("dotenv").config();
+var LocalStrategy = require('passport-local').Strategy;
+var mysql = require('mysql');
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }))
 
 var session = require('express-session');
-var PORT = 8080;
+var PORT = process.env.PORT || 9000;
 
 app.use(express.static(__dirname + '/public'));
 
@@ -22,7 +32,6 @@ hbs.getPartials().then(function (partials) {
     console.log(partials);
     });
 
-var Sequelize = require('sequelize');
 var Sequelize = require('sequelize');
 var connection = new Sequelize('MMUsersDB', 'root');
 
@@ -72,7 +81,6 @@ var email= req.body.email ;
 var password = req.body.password;
   checkUser(email, password)
 });
-
 app.post('/register', function(req,res) {
   console.log(req.body.email)
     User.create({
@@ -86,9 +94,7 @@ app.post('/register', function(req,res) {
 
   res.redirect("/");
 });
-
 connection.sync()
   app.listen(PORT, function() {
     console.log("Listening on port %s", PORT);
   })
-
