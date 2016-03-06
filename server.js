@@ -127,32 +127,16 @@ app.get('/register', function(req,res) {
   });
 });
 
-app.get('/loggedIn', function(req,res) {
+app.get('/loggedin', function(req,res) {
   res.render("loggedIn");
 });
 
-app.post('/logIn', function(req,res) {
-var checkUser = function(username, password){
-  User.findOne({
-    where: {
-      email: username,
-      password:password 
-    }
-  }).then(function(results){
-    if(results){
-        console.log("Successfully logged in!");
-        res.redirect("/loggedIn")
-      } else {
-        console.log("Your login credentials do not work");
-        res.redirect("/")
-      }
-   }); 
-}
+  app.post('/login',
+      passport.authenticate('local', {
+        successRedirect: '/loggedin?msg=Login successful.',
+        failureRedirect: '/?msg=Login unsuccessful, please check your email and password or if you haven\'t done so, please register.'
+      }));
 
-var email= req.body.email ;
-var password = req.body.password;
-  checkUser(email, password)
-});
 app.post('/register', function(req,res) {
 User.findOne({where: {email: req.body.email}}).then(function(results) {
     if(results){
@@ -160,8 +144,8 @@ User.findOne({where: {email: req.body.email}}).then(function(results) {
     else {
       User.create({
         username: req.body.username,
-        lastname: req.body.lname,
-        firstname: req.body.fname,
+        lastname: req.body.lastname,
+        firstname: req.body.firstname,
         email: req.body.email,
         password: saltyhash(req.body.password)
       }).then(function() {
