@@ -118,11 +118,13 @@ function isAuth(req, res, next) {
 
 app.get('/', function(req,res) {
 
-  res.render("index");
+  res.render("index",  {msg: req.query.msg
+  });
 });
 
-app.get('/signUp', function(req,res) {
-  res.render("signUP");
+app.get('/register', function(req,res) {
+  res.render("signUP", {msg: req.query.msg
+  });
 });
 
 app.get('/loggedIn', function(req,res) {
@@ -154,7 +156,7 @@ var password = req.body.password;
 app.post('/register', function(req,res) {
 User.findOne({where: {email: req.body.email}}).then(function(results) {
     if(results){
-      res.redirect("/?msg=Your email is already registered, please login.");}
+      res.redirect("/register?msg=Your email is already registered, please login.");}
     else {
       User.create({
         username: req.body.username,
