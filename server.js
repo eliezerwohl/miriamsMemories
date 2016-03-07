@@ -9,7 +9,6 @@ var passport = require('passport');
 var session = require('express-session');
 //bcrypt
 var bcrypt = require("bcryptjs");
-
 //bodyParser
 require("dotenv").config();
 var LocalStrategy = require('passport-local').Strategy;
@@ -22,14 +21,12 @@ var PORT = process.env.PORT || 9000;
 
 app.use(express.static(__dirname + '/public'));
 
-
 app.engine('handlebars', expressHandlebars({
     defaultLayout: 'main'
 }));
 app.set('view engine', 'handlebars');
 
 var hbs = require('express-handlebars').create();
- 
 hbs.getPartials().then(function (partials) {
     console.log(partials);
     });
@@ -134,7 +131,6 @@ function isAuth(req, res, next) {
 }
 
 app.get('/', function(req,res) {
-
   res.render("index",  {msg: req.query.msg, layout: "mainpage.handlebars"
   });
 });
@@ -196,6 +192,21 @@ var id= User[0].dataValues.id;
   res.render("patientregister", {first: firstname, last:lastname, id:id})
   });
 });
+
+app.post('/patientregister', isAuth, function(req,res){
+Patient.create({
+        lastname: req.body.lastname,
+        firstname: req.body.firstname,
+       UserId: req.body.UserId
+      }).then(function() {
+        res.redirect("patientquestion")
+      })
+})
+
+app.get("/patientquestion", isAuth, function(req, res){
+  res.send("looks like you made it")
+})
+
 
 connection.sync()
   app.listen(PORT, function() {
