@@ -118,19 +118,30 @@ function isAuth(req, res, next) {
 
 app.get('/', function(req,res) {
 
-  res.render("index",  {msg: req.query.msg
+  res.render("index",  {msg: req.query.msg, layout: "mainpage.handlebars"
   });
 });
 
 app.get('/register', function(req,res) {
-  res.render("signUP", {msg: req.query.msg
+  res.render("signUP", {msg: req.query.msg, layout: "mainpage.handlebars"
   });
 });
 
 app.get('/loggedin', isAuth, function(req,res) {
+
   usern = req.user.username;
-  console.log(usern)
-  res.render("loggedIn", {user: usern});
+  User.findAll({
+    where: [
+    {email:usern}
+    ]
+  }).then(function(User) {
+ 
+    var firstname = User[0].dataValues.firstname;
+    var lastname = User[0].dataValues.lastname
+    res.render("loggedIn", {msg: req.query.msg, first: firstname, last:lastname,
+      User : User
+  })
+  })
 });
 
   app.post('/login',
