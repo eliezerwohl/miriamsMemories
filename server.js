@@ -2,6 +2,8 @@ var express = require('express');
 var app = express();
 var expressHandlebars = require('express-handlebars');
 var usern;
+var firstname;
+var lastname;
 //passport
 var passport = require('passport');
 var session = require('express-session');
@@ -54,6 +56,21 @@ var User = connection.define('User', {
   lastname: Sequelize.STRING,
   username: Sequelize.STRING
 }); 
+
+var Patient = connection.define('Patient', {
+  firstname: Sequelize.STRING,
+  lastname: Sequelize.STRING,
+}); 
+
+var Question = connection.define('Question', {
+  question: Sequelize.STRING,
+  answer: Sequelize.STRING
+}); 
+
+User.hasMany(Patient);
+Patient.hasMany(Question);
+Patient.belongsTo(User);
+Question.belongsTo(Patient);
 
 app.use(express.static('public'));
 app.use(require('express-session')({
@@ -128,19 +145,18 @@ app.get('/register', function(req,res) {
 });
 
 app.get('/loggedin', isAuth, function(req,res) {
-
   usern = req.user.username;
   User.findAll({
     where: [
     {email:usern}
     ]
   }).then(function(User) {
- 
     var firstname = User[0].dataValues.firstname;
-    var lastname = User[0].dataValues.lastname
+    var lastname = User[0].dataValues.lastname;
     res.render("loggedIn", {msg: req.query.msg, first: firstname, last:lastname,
       User : User
   })
+    return firstname
   })
 });
 
@@ -168,7 +184,7 @@ User.findOne({where: {email: req.body.email}}).then(function(results) {
 });
 
 app.get('/patientregister', isAuth, function(req,res) {
-  res.render("patientregister")
+  res.render("patientregister", {first: firstname, last:lastname})
   });
 
 connection.sync()
