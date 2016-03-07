@@ -184,9 +184,18 @@ User.findOne({where: {email: req.body.email}}).then(function(results) {
 });
 
 app.get('/patientregister', isAuth, function(req,res) {
-  console.log(firstname)
-  res.render("patientregister", {first: firstname, last:lastname})
+  console.log(firstname);
+   User.findAll({
+    where: [
+    {email:usern}
+    ]
+  }).then(function(User) {
+    debugger
+    console.log(User)
+var id= User[0].dataValues.id;
+  res.render("patientregister", {first: firstname, last:lastname, id:id})
   });
+});
 
 connection.sync()
   app.listen(PORT, function() {
