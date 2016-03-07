@@ -2,9 +2,9 @@ var express = require('express');
 var app = express();
 var router = express.Router();
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize('MMUsersDB', 'root');
+var connection = new Sequelize('MMUsersDB', 'root');
 
-var User = sequelize.define('User', {
+var User = connection.define('User', {
   email: {
     type: Sequelize.STRING,
     unique: true
@@ -13,14 +13,6 @@ var User = sequelize.define('User', {
   firstname: Sequelize.STRING,
   lastname: Sequelize.STRING
 }); 
-
-
-
-
-// var bodyParser = require('body-parser');
-// app.use(bodyParser.urlencoded({ extended: false }))
-
-
 
 
 router.get('/', function(req,res) {
@@ -58,6 +50,7 @@ var email= req.body.email ;
 var password = req.body.password;
   checkUser(email, password)
 });
+
 router.post('/register', function(req,res) {
   console.log(req.body.email)
     User.create({
