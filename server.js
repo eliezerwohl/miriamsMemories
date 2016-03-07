@@ -144,6 +144,7 @@ app.get('/register', function(req,res) {
   });
 });
 
+ 
 app.get('/loggedin', isAuth, function(req,res) {
   usern = req.user.username;
   User.findAll({
@@ -151,12 +152,11 @@ app.get('/loggedin', isAuth, function(req,res) {
     {email:usern}
     ]
   }).then(function(User) {
-    var firstname = User[0].dataValues.firstname;
-    var lastname = User[0].dataValues.lastname;
+    firstname = User[0].dataValues.firstname;
+    lastname = User[0].dataValues.lastname;
     res.render("loggedIn", {msg: req.query.msg, first: firstname, last:lastname,
       User : User
   })
-    return firstname
   })
 });
 
@@ -184,6 +184,7 @@ User.findOne({where: {email: req.body.email}}).then(function(results) {
 });
 
 app.get('/patientregister', isAuth, function(req,res) {
+  console.log(firstname)
   res.render("patientregister", {first: firstname, last:lastname})
   });
 
