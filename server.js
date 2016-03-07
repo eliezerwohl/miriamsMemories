@@ -128,7 +128,9 @@ app.get('/register', function(req,res) {
 });
 
 app.get('/loggedin', isAuth, function(req,res) {
-  res.render("loggedIn");
+  usern = req.user.username;
+  console.log(usern)
+  res.render("loggedIn", {user: usern});
 });
 
   app.post('/login',
@@ -143,7 +145,6 @@ User.findOne({where: {email: req.body.email}}).then(function(results) {
       res.redirect("/register?msg=Your email is already registered, please login.");}
     else {
       User.create({
-        username: req.body.username,
         lastname: req.body.lastname,
         firstname: req.body.firstname,
         email: req.body.email,
@@ -154,6 +155,10 @@ User.findOne({where: {email: req.body.email}}).then(function(results) {
     }
   })
 });
+
+app.get('/patientregister', isAuth, function(req,res) {
+  res.render("patientregister")
+  });
 
 connection.sync()
   app.listen(PORT, function() {
