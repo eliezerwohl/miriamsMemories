@@ -203,8 +203,9 @@ Patient.create({
       })
 })
 
-app.get("/patientquestion", isAuth, function(req, res){
-  res.send("looks like you made it")
+app.get("/patientquestion/:question", isAuth, function(req, res){
+  var page = "question"+req.params.question;
+  res.render (page);
 })
 
 
