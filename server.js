@@ -206,8 +206,6 @@ Patient.create({
       })
 })
 
-
-
 app.get("/patientquestion/:question/:patientId", isAuth, function(req, res){
   var patientId = req.params.patientId;
   var page = "question"+req.params.question;
@@ -222,12 +220,9 @@ app.post("/patientquestion/:question/:patientId", isAuth, function(req, res){
         answer: req.body.answer,
        PatientId: req.params.patientId
       }).then(function(data) {
-
-  res.send("you did it");
+  res.redirect("/patientquestion/" + nextPage +"/" + req.params.patientId);
 })
     })  
-
-
 
 connection.sync()
   app.listen(PORT, function() {
