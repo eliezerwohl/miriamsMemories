@@ -14,10 +14,6 @@
   margin-top: 10px;
 }
 
-/*  $("#newPatient").fadeIn(1000);
-  $("#searchPatient").fadeIn(1500);
-  $("#viewALl").fadeIn(2000);
-  $("#logOut").fadeIn(2500);*/
 #newPatient, #searchPatient, #viewAll, #logOut {
   display: none;
 }
@@ -25,8 +21,6 @@
 /*  font-size:2em;
   top-margin:10px;*/
 }
-
-
 #loginButton{
   margin-bottom: 20px;
   margin-top: 10px;
@@ -37,9 +31,6 @@
 /*  font-size: 20px;*/
 }
 
-
-
-
 .glyphicon, .glyphicon-search{
 /*font-size:20px;*/
 margin-right:10px;
@@ -48,11 +39,6 @@ margin-right:10px;
 margin-bottom:10px;
  
 }
-/* .jumbotron{
-  bottom-padding:300px;
-}*/
-
-
 .content{
   margin-top: 30px;
 }
