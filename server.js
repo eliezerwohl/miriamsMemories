@@ -4,6 +4,7 @@ var expressHandlebars = require('express-handlebars');
 var usern;
 var firstname;
 var lastname;
+var patientId;
 //passport
 var passport = require('passport');
 var session = require('express-session');
@@ -18,7 +19,6 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 var session = require('express-session');
 var PORT = process.env.PORT || 9000;
-
 app.use(express.static(__dirname + '/public'));
 
 app.engine('handlebars', expressHandlebars({
@@ -186,7 +186,7 @@ app.get('/patientregister', isAuth, function(req,res) {
     {email:usern}
     ]
   }).then(function(User) {
-    debugger
+
     console.log(User)
 var id= User[0].dataValues.id;
   res.render("patientregister", {first: firstname, last:lastname, id:id})
@@ -198,15 +198,35 @@ Patient.create({
         lastname: req.body.lastname,
         firstname: req.body.firstname,
        UserId: req.body.UserId
-      }).then(function() {
-        res.redirect("patientquestion")
+      }).then(function(data) {
+
+        var patientId = data.dataValues.id;
+        console.log(patientId)
+        res.redirect("patientquestion/1/" + patientId);
       })
 })
 
-app.get("/patientquestion/:question", isAuth, function(req, res){
+
+
+app.get("/patientquestion/:question/:patientId", isAuth, function(req, res){
+  var patientId = req.params.patientId;
   var page = "question"+req.params.question;
-  res.render (page);
+  res.render (page, {patient:patientId});
 })
+
+app.post("/patientquestion/:question/:patientId", isAuth, function(req, res){
+
+  var nextPage = parseInt(req.params.question) + 1;
+  Question.create({
+      question: req.body.question,
+        answer: req.body.answer,
+       PatientId: req.params.patientId
+      }).then(function(data) {
+
+  res.send("you did it");
+})
+    })  
+
 
 
 connection.sync()

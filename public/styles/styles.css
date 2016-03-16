@@ -1,3 +1,8 @@
+.question{
+  color:red;
+  width:100px;
+}
+
 .btn-info, .btn-alert{
  margin-top:30px;
  margin-bottom:10px;
