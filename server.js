@@ -56,6 +56,10 @@ var User = connection.define('User', {
   username: Sequelize.STRING
 });
 
+var BulkQuestion = connection.define("BulkQuestion", {
+question:Sequelize.STRING
+});
+
 var Patient = connection.define('Patient', {
   firstname: Sequelize.STRING,
   lastname: Sequelize.STRING,
@@ -232,12 +236,12 @@ app.post('/patientregister', isAuth, function(req, res) {
   })
 })
 
-app.get("/patientquestion/:question", isAuth, function(req, res) {
-  var page = "question" + req.params.question;
-  res.render(page, {
-    patient: patientId
-  });
-})
+// app.get("/patientquestion/:question", isAuth, function(req, res) {
+//   var page = "question" + req.params.question;
+//   res.render(page, {
+//     patient: patientId
+//   });
+// })
 
 app.post("/patientquestion/:question/", isAuth, function(req, res) {
 
@@ -251,10 +255,20 @@ app.post("/patientquestion/:question/", isAuth, function(req, res) {
   })
 })
 
-app.get("/test", function(req, res) {
-  debugger
-console.log(patientId)
-})
+app.get("/patientquestion/:number", function(req, res) {
+  // if bulkquestion.length = :number
+  //   go to make a question
+  // else
+  var number= req.params.number;
+ BulkQuestion.findAll({
+    where: [{
+      id: number
+    }]
+  }).then(function(question) {
+    console.log(question)
+    res.render("questionPage", {number:number, question:question[0].dataValues.question})
+});
+});
 
 
 connection.sync()
