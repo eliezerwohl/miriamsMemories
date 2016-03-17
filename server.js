@@ -100,7 +100,6 @@ passport.deserializeUser(function(id, done) {
   })
 });
 
-
 passport.use('local', new LocalStrategy({
     passReqToCallback: true,
     usernameField: 'email',
@@ -131,7 +130,6 @@ passport.use('local', new LocalStrategy({
         }
       });
   }));
-
 //bcrypt define
 function saltyhash(pass) {
   var salt = bcrypt.genSaltSync(10);
@@ -154,6 +152,7 @@ app.get('/', function(req, res) {
   });
 });
 
+// register user
 app.get('/register', function(req, res) {
   res.render("signUP", {
     msg: req.query.msg,
@@ -186,7 +185,7 @@ app.post('/login',
     failureRedirect: '/?msg=Login unsuccessful, please check your email and password or if you haven\'t done so, please register.'
   }));
 
-app.post('/register', function(req, res) {
+app.post('/register', isAuth, function(req, res) {
   User.findOne({
     where: {
       email: req.body.email
@@ -236,15 +235,26 @@ app.post('/patientregister', isAuth, function(req, res) {
   })
 })
 
-// app.get("/patientquestion/:question", isAuth, function(req, res) {
-//   var page = "question" + req.params.question;
-//   res.render(page, {
-//     patient: patientId
-//   });
-// })
-
+app.get("/patientquestion/:number", isAuth, function(req, res) {
+  var number= req.params.number;
+  BulkQuestion.findAndCountAll().then(function(result){
+    //automatically send the user to the create a question page after all the premade
+    //questions have been answered
+    if (number > result.count){
+      res.redirect("/patientQuestionComplete")
+    }
+    else{
+       BulkQuestion.findAll({
+        where: [{
+        id: number
+        }]
+      }).then(function(question) {
+        res.render("questionPage", {number:number, question:question[0].dataValues.question})
+      });
+    }
+  })
+});
 app.post("/patientquestion/:question/", isAuth, function(req, res) {
-
   var nextPage = parseInt(req.params.question) + 1;
   Question.create({
     question: req.body.question,
@@ -255,21 +265,13 @@ app.post("/patientquestion/:question/", isAuth, function(req, res) {
   })
 })
 
-app.get("/patientquestion/:number", function(req, res) {
-  // if bulkquestion.length = :number
-  //   go to make a question
-  // else
-  var number= req.params.number;
- BulkQuestion.findAll({
-    where: [{
-      id: number
-    }]
-  }).then(function(question) {
-    console.log(question)
-    res.render("questionPage", {number:number, question:question[0].dataValues.question})
-});
+app.get("/patientQuestionComplete", function(req, res){
+  res.render("patientQuestionComplete")
 });
 
+app.get("/test", function(req, res){
+  res.render("patientQuestionComplete")
+});
 
 connection.sync()
 app.listen(PORT, function() {
