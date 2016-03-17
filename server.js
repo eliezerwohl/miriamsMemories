@@ -269,6 +269,21 @@ app.get("/patientQuestionComplete", function(req, res){
   res.render("patientQuestionComplete")
 });
 
+app.get("/questionCreate", function(req, res){
+  res.render("questionCreate")
+  // res.send("herrro")
+});
+
+app.post("/questionCreate", function(req, res){
+  Question.create({
+    question: req.body.question,
+    answer: req.body.answer,
+    PatientId: patientId
+  }).then(function(data) {
+  res.redirect("/patientQuestionComplete")
+  })
+});
+
 app.get("/test", function(req, res){
   res.render("patientQuestionComplete")
 });
