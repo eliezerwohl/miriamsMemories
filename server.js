@@ -284,8 +284,20 @@ app.post("/questionCreate", function(req, res){
   })
 });
 
-app.get("/test", function(req, res){
-  res.render("patientQuestionComplete")
+app.get("/showAll", function(req, res){
+  User.findAll({
+    where: [{
+      email: usern
+    }]
+  }).then(function(User) {
+    Patient.findAll({
+      where:[{
+        UserId:User[0].dataValues.id
+      }]
+    }).then(function(results){
+      res.render("showAll", {results:results})
+    });
+   })
 });
 
 connection.sync()
