@@ -227,32 +227,35 @@ app.post('/patientregister', isAuth, function(req, res) {
     firstname: req.body.firstname,
     UserId: req.body.UserId
   }).then(function(data) {
-
-    var patientId = data.dataValues.id;
-    console.log(patientId)
-    res.redirect("patientquestion/1/" + patientId);
+    patientId = data.dataValues.id;
+    res.redirect("patientquestion/1");
   })
 })
 
-app.get("/patientquestion/:question/:patientId", isAuth, function(req, res) {
-  var patientId = req.params.patientId;
+app.get("/patientquestion/:question", isAuth, function(req, res) {
   var page = "question" + req.params.question;
   res.render(page, {
     patient: patientId
   });
 })
 
-app.post("/patientquestion/:question/:patientId", isAuth, function(req, res) {
+app.post("/patientquestion/:question/", isAuth, function(req, res) {
 
   var nextPage = parseInt(req.params.question) + 1;
   Question.create({
     question: req.body.question,
     answer: req.body.answer,
-    PatientId: req.params.patientId
+    PatientId: patientId
   }).then(function(data) {
-    res.redirect("/patientquestion/" + nextPage + "/" + req.params.patientId);
+    res.redirect("/patientquestion/" + nextPage + "/");
   })
 })
+
+app.get("/test", function(req, res) {
+  debugger
+console.log(patientId)
+})
+
 
 connection.sync()
 app.listen(PORT, function() {
