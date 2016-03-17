@@ -241,7 +241,7 @@ app.get("/patientquestion/:number", isAuth, function(req, res) {
     //automatically send the user to the create a question page after all the premade
     //questions have been answered
     if (number > result.count){
-      res.send("/done")
+      res.redirect("/patientQuestionComplete")
     }
     else{
        BulkQuestion.findAll({
@@ -264,6 +264,14 @@ app.post("/patientquestion/:question/", isAuth, function(req, res) {
     res.redirect("/patientquestion/" + nextPage + "/");
   })
 })
+
+app.get("/patientQuestionComplete", function(req, res){
+  res.render("patientQuestionComplete")
+});
+
+app.get("/test", function(req, res){
+  res.render("patientQuestionComplete")
+});
 
 connection.sync()
 app.listen(PORT, function() {
