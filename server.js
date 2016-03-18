@@ -54,6 +54,9 @@ var BulkQuestion = connection.define("BulkQuestion", {
 question:Sequelize.STRING
 });
 
+var Note = connection.define("Note", {
+  note:Sequelize.STRING
+});
 var Patient = connection.define('Patient', {
   firstname: Sequelize.STRING,
   lastname: Sequelize.STRING,
@@ -66,6 +69,8 @@ var Question = connection.define('Question', {
 
 User.hasMany(Patient);
 Patient.hasMany(Question);
+Question.hasMany(Note);
+Note.belongsTo(Question);
 Patient.belongsTo(User);
 Question.belongsTo(Patient);
 
@@ -313,7 +318,6 @@ Question.findAll({
     }]
   }).then(function(results) {
     console.log(results)
-
     res.render("qa", {results:results})
   })
 });
