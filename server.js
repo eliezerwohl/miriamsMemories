@@ -322,6 +322,35 @@ Question.findAll({
   })
 });
 
+app.get("/viewNote/:questionId", function (req, res) {
+  req.session.questionId = req.params.questionId;
+  Question.findAll({
+    include: [
+      {model: Note}
+      ],
+    where: [{
+      PatientId: req.session.patientId,
+      // using the id so that user can't access a question not linked to thier user
+      id:req.session.questionId
+    }]
+  }).then(function(results){
+    debugger
+    console.log(results)
+    res.render("questionInfo", {results:results})
+    })
+})
+
+app.post("/createNote", function (req, res){
+  Note.create({
+    QuestionId: req.session.questionId,
+    note: req.body.note
+  }).then(function(data) {
+    res.redirect("back")
+  });
+});
+
+
+
 connection.sync()
 app.listen(PORT, function() {
   console.log("Listening on port %s", PORT);

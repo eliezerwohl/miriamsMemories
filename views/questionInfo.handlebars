@@ -1,0 +1,14 @@
+{{#each results}}
+{{this.question}}
+<form action="/createNote" method="post">
+ <textarea name="note"></textarea>
+  <button type="submit"> add notes</button>
+  </form>
+  {{#each Notes}}
+  {{this.note}}
+  {{/each}}
+{{/each}}
+
+
+
+
