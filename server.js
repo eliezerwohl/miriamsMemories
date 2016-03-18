@@ -291,6 +291,30 @@ app.get("/showAll", function(req, res){
    })
 });
 
+app.get("/view/:patientId", function(req, res){
+req.session.patientId = req.params.patientId;
+Patient.findAll({
+    where: [{
+      // using both userid and id to prevent user from rendering a patient that doesn't belong to them
+      UserId: req.session.UserId,
+      id:req.session.patientId
+    }]
+  }).then(function(results) {
+    res.render("patientInfo", {results:results})
+  })
+});
+
+app.get("/view/qa", function(req, res){
+req.session.patientId = req.params.patientId;
+Question.findAll({
+    where: [{
+      PatientId: req.session.patientId,
+    }]
+  }).then(function(results) {
+    res.render("patientInfo", {results:results})
+  })
+});
+
 connection.sync()
 app.listen(PORT, function() {
   console.log("Listening on port %s", PORT);
