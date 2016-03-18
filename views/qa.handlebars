@@ -1,11 +1,19 @@
 {{#each results}}
-<h3>{{this.question}}</h3>
-
-<p>{{this.answer}}</p>
-<br>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="col-md-10">
+      <h3>{{this.question}}</h3>
+      <p>{{this.answer}}</p>
+      <br>
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-default btn-lg btn-block btn-default">Add A Note </button>
+    </div>
+  </div>
+</div>
 {{/each}}
 
-Here are all the questions and answers page.
+<!-- Here are all the questions and answers page.
 
 default is to view all question and answers
 
@@ -14,4 +22,4 @@ add a question
 
 Or
 
-update with a note
+update with a note -->

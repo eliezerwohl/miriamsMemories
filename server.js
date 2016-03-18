@@ -312,7 +312,6 @@ Question.findAll({
       PatientId: req.session.patientId,
     }]
   }).then(function(results) {
-    debugger
     console.log(results)
 
     res.render("qa", {results:results})
