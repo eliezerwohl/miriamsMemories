@@ -1,11 +1,7 @@
 
 var express = require('express');
 var app = express();
-var expressHandlebars = require('express-handlebars');
-var usern;
-var firstname;
-var lastname;
-var patientId;
+var expressHandlebars = require('express-handlebars'); 
 //passport
 var passport = require('passport');
 var session = require('express-session');
@@ -19,11 +15,9 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({
   extended: false
 }))
-
 var session = require('express-session');
 var PORT = process.env.PORT || 9000;
 app.use(express.static(__dirname + '/public'));
-
 app.engine('handlebars', expressHandlebars({
   defaultLayout: 'main'
 }));
@@ -162,18 +156,18 @@ app.get('/register', function(req, res) {
 
 
 app.get('/loggedin', isAuth, function(req, res) {
-  usern = req.user.username;
   User.findAll({
     where: [{
-      email: usern
+      email: req.user.username
     }]
   }).then(function(User) {
-    firstname = User[0].dataValues.firstname;
-    lastname = User[0].dataValues.lastname;
+    req.session.firstname = User[0].dataValues.firstname;
+    req.session.lastname = User[0].dataValues.lastname;
+    req.session.UserId= User[0].dataValues.id
     res.render("loggedIn", {
       msg: req.query.msg,
-      first: firstname,
-      last: lastname,
+      first: req.session.firstname,
+      last: req.session.lastname,
       User: User
     })
   })
@@ -185,7 +179,7 @@ app.post('/login',
     failureRedirect: '/?msg=Login unsuccessful, please check your email and password or if you haven\'t done so, please register.'
   }));
 
-app.post('/register', isAuth, function(req, res) {
+app.post('/register', function(req, res) {
   User.findOne({
     where: {
       email: req.body.email
@@ -207,19 +201,16 @@ app.post('/register', isAuth, function(req, res) {
 });
 
 app.get('/patientregister', isAuth, function(req, res) {
-  console.log(firstname);
   User.findAll({
     where: [{
-      email: usern
+      email: req.user.username
     }]
   }).then(function(User) {
-
     console.log(User)
-    var id = User[0].dataValues.id;
     res.render("patientregister", {
-      first: firstname,
-      last: lastname,
-      id: id
+      first: req.body.firstname,
+      last: req.body.lastname,
+      id: req.session.UserId
     })
   });
 });
@@ -228,9 +219,9 @@ app.post('/patientregister', isAuth, function(req, res) {
   Patient.create({
     lastname: req.body.lastname,
     firstname: req.body.firstname,
-    UserId: req.body.UserId
+    UserId: req.session.UserId
   }).then(function(data) {
-    patientId = data.dataValues.id;
+    req.session.patientId = data.dataValues.id;
     res.redirect("patientquestion/1");
   })
 })
@@ -259,7 +250,7 @@ app.post("/patientquestion/:question/", isAuth, function(req, res) {
   Question.create({
     question: req.body.question,
     answer: req.body.answer,
-    PatientId: patientId
+    PatientId: req.session.patientId
   }).then(function(data) {
     res.redirect("/patientquestion/" + nextPage + "/");
   })
@@ -278,7 +269,7 @@ app.post("/questionCreate", function(req, res){
   Question.create({
     question: req.body.question,
     answer: req.body.answer,
-    PatientId: patientId
+    PatientId: req.session.patientId 
   }).then(function(data) {
   res.redirect("/patientQuestionComplete")
   })
@@ -287,12 +278,12 @@ app.post("/questionCreate", function(req, res){
 app.get("/showAll", function(req, res){
   User.findAll({
     where: [{
-      email: usern
+      email: req.user.username
     }]
   }).then(function(User) {
     Patient.findAll({
       where:[{
-        UserId:User[0].dataValues.id
+        UserId:req.session.UserId
       }]
     }).then(function(results){
       res.render("showAll", {results:results})
