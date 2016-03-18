@@ -293,6 +293,8 @@ app.get("/showAll", function(req, res){
 
 app.get("/view/:patientId", function(req, res){
 req.session.patientId = req.params.patientId;
+
+console.log(req.session.patientId)
 Patient.findAll({
     where: [{
       // using both userid and id to prevent user from rendering a patient that doesn't belong to them
@@ -304,14 +306,16 @@ Patient.findAll({
   })
 });
 
-app.get("/view/qa", function(req, res){
-req.session.patientId = req.params.patientId;
+app.get("/patientQa", function(req, res){
 Question.findAll({
     where: [{
       PatientId: req.session.patientId,
     }]
   }).then(function(results) {
-    res.render("patientInfo", {results:results})
+    debugger
+    console.log(results)
+
+    res.render("qa", {results:results})
   })
 });
 
