@@ -7,8 +7,8 @@
   <h3> Answer</h3>
   <h4>{{this.answer}} </h4>
   <form action="/createNote" method="post">
-   <textarea name="note"></textarea>
-    <button type="submit"> add notes</button>
+   <textarea class="form-control" rows="5" name="note"></textarea>
+    <button type="submit" class="btn btn-lg btn-primary btn-block"> add notes</button>
     </form>
     {{#each Notes}}
     <p>{{this.note}}<p>
