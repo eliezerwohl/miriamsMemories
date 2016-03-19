@@ -349,8 +349,18 @@ app.post("/createNote", function (req, res){
   });
 });
 
+app.get("/back", function(req, res){
+  res.redirect("view/"+req.session.patientId)
+})
 
-
+// javascript split charAt[9]
+// look at npm moment convert utc
+app.get('/logout', function (req, res){
+  req.logOut();
+  req.session.destroy(function (err) {
+  res.redirect('/'); 
+  });
+});
 connection.sync()
 app.listen(PORT, function() {
   console.log("Listening on port %s", PORT);
