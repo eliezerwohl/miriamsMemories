@@ -1,6 +1,6 @@
-loggedIn()
+mainpageAnimation()
 
-function loggedIn(){
+function mainpageAnimation(){
 
   $("#newPatient").fadeIn(1000);
   $("#searchPatient").fadeIn(1500);
