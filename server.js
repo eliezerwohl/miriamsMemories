@@ -349,7 +349,9 @@ app.post("/createNote", function (req, res){
   });
 });
 
-
+app.get("/back", function(req, res){
+  res.redirect("view/"+req.session.patientId)
+})
 
 connection.sync()
 app.listen(PORT, function() {
