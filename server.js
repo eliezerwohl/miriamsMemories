@@ -55,7 +55,7 @@ question:Sequelize.STRING
 });
 
 var Note = connection.define("Note", {
-  note:Sequelize.STRING
+  note:Sequelize.STRING,
 });
 var Patient = connection.define('Patient', {
   firstname: Sequelize.STRING,
