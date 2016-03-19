@@ -1,14 +1,28 @@
-{{#each results}}
-{{this.question}}
-<form action="/createNote" method="post">
- <textarea name="note"></textarea>
-  <button type="submit"> add notes</button>
-  </form>
-  {{#each Notes}}
-  {{this.note}}
+
+<div class="col-md-8">
+  {{#each results}}
+  <h3>Question</h3>
+  <h4>{{this.question}}</h4>
+  <br>
+  <h3> Answer</h3>
+  <h4>{{this.answer}} </h4>
+  <form action="/createNote" method="post">
+   <textarea name="note"></textarea>
+    <button type="submit"> add notes</button>
+    </form>
+    {{#each Notes}}
+    <p>{{this.note}}<p>
+      <p>Created at {{this.createdAt}}</p>
+    <br>
+    {{/each}}
   {{/each}}
-{{/each}}
+  </div>
+ 
 
-
+<div class="col-md-4">
+  <a href="/patientQa"><div class="col-md-12 btnDiv">
+    <button class="btn btn-default btn-lg btn-block">Back</button>
+  </div></a>
+  </div>
 
 
