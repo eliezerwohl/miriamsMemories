@@ -287,6 +287,8 @@ app.get("/showAll", function(req, res){
     }]
   }).then(function(User) {
     Patient.findAll({
+      order: [
+    ['lastname', 'ASC']],
       where:[{
         UserId:req.session.UserId
       }]
@@ -361,6 +363,46 @@ app.get('/logout', function (req, res){
   res.redirect('/'); 
   });
 });
+
+app.get("/search", function(req, res){
+  res.render("search")
+
+});
+
+app.post("/search", function(req, res){
+ req.session.search = "%" + req.body.search + "%"
+ res.redirect("/searchResults");
+});
+
+app.get("/searchResults", function(req, res){
+  debugger
+ Patient.findAll({
+    order: [
+    ['lastname', 'ASC']],
+    where: [{
+      UserId: req.session.UserId,
+     $or: [{firstname: {$like:req.session.search}}, {lastname: {$like: req.session.search}}]
+    }]
+  }).then(function(results) {
+  res.render("showAll", {results:results})
+ });
+})
+
+
+  // (a = 5 OR a = 6)
+// app.post("/lastNameSearch", function(req, res){
+//  var search = req.body.search;
+//  Patient.findAll({
+//     where: [{
+//       UserId: 1,
+//       firstname: search
+//     }]
+//   }).then(function(results) {
+//     debugger
+//     console.log(results)
+//  });
+// })
+
 connection.sync()
 app.listen(PORT, function() {
   console.log("Listening on port %s", PORT);
