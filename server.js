@@ -287,6 +287,8 @@ app.get("/showAll", function(req, res){
     }]
   }).then(function(User) {
     Patient.findAll({
+      order: [
+    ['lastname', 'ASC']],
       where:[{
         UserId:req.session.UserId
       }]
@@ -362,24 +364,27 @@ app.get('/logout', function (req, res){
   });
 });
 
-app.get("/test", function(req, res){
+app.get("/search", function(req, res){
   res.render("search")
 
 });
 
-app.post("/test", function(req, res){
+app.post("/search", function(req, res){
+ req.session.search = "%" + req.body.search + "%"
+ res.redirect("/searchResults");
+});
+
+app.get("/searchResults", function(req, res){
   debugger
- var search = req.body.search;
- var searchterm = "%" + req.body.search + "%"
- console.log(req.session.UserId)
  Patient.findAll({
+    order: [
+    ['lastname', 'ASC']],
     where: [{
       UserId: req.session.UserId,
-     $or: [{firstname: {$like: searchterm}}, {lastname: {$like: searchterm}}]
+     $or: [{firstname: {$like:req.session.search}}, {lastname: {$like: req.session.search}}]
     }]
   }).then(function(results) {
-    debugger
-    console.log(results)
+  res.render("showAll", {results:results})
  });
 })
 
