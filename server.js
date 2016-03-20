@@ -361,6 +361,43 @@ app.get('/logout', function (req, res){
   res.redirect('/'); 
   });
 });
+
+app.get("/test", function(req, res){
+  res.render("search")
+
+});
+
+app.post("/test", function(req, res){
+  debugger
+ var search = req.body.search;
+ var searchterm = "%" + req.body.search + "%"
+ console.log(req.session.UserId)
+ Patient.findAll({
+    where: [{
+      UserId: req.session.UserId,
+     $or: [{firstname: {$like: searchterm}}, {lastname: {$like: searchterm}}]
+    }]
+  }).then(function(results) {
+    debugger
+    console.log(results)
+ });
+})
+
+
+  // (a = 5 OR a = 6)
+// app.post("/lastNameSearch", function(req, res){
+//  var search = req.body.search;
+//  Patient.findAll({
+//     where: [{
+//       UserId: 1,
+//       firstname: search
+//     }]
+//   }).then(function(results) {
+//     debugger
+//     console.log(results)
+//  });
+// })
+
 connection.sync()
 app.listen(PORT, function() {
   console.log("Listening on port %s", PORT);
