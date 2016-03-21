@@ -36,43 +36,31 @@ if (process.env.NODE_ENV === 'production') {
   var connection = new Sequelize(process.env.JAWSDB_URL);
 } else {
   // LOCAL DB
-  var connection = new Sequelize('mmusersdb', 'root');
+  var connection = new Sequelize('mmdb', 'root');
 }
+var User = require('./models/User');
 
-var User = connection.define('User', {
-  email: {
-    type: Sequelize.STRING,
-    unique: true
-  },
-  password: Sequelize.STRING,
-  firstname: Sequelize.STRING,
-  lastname: Sequelize.STRING,
-  username: Sequelize.STRING
-});
 
-var BulkQuestion = connection.define("BulkQuestion", {
-question:Sequelize.STRING
-});
-
-var Note = connection.define("Note", {
-  note:Sequelize.STRING,
-});
-var Patient = connection.define('Patient', {
-  firstname: Sequelize.STRING,
-  lastname: Sequelize.STRING,
-});
-
-var Question = connection.define('Question', {
-  question: Sequelize.STRING,
-  answer: Sequelize.STRING
-});
-
-User.hasMany(Patient);
-Patient.hasMany(Question);
-Question.hasMany(Note);
-Note.belongsTo(Question);
-Patient.belongsTo(User);
-Question.belongsTo(Patient);
+// var BulkQuestion = connection.define("BulkQuestion", {
+// question:Sequelize.STRING
+// });
+// var Note = connection.define("Note", {
+//   note:Sequelize.STRING,
+// });
+// var Patient = connection.define('Patient', {
+//   firstname: Sequelize.STRING,
+//   lastname: Sequelize.STRING,
+// });
+// var Question = connection.define('Question', {
+//   question: Sequelize.STRING,
+//   answer: Sequelize.STRING
+// });
+// User.hasMany(Patient);
+// Patient.hasMany(Question);
+// Question.hasMany(Note);
+// Note.belongsTo(Question);
+// Patient.belongsTo(User);
+// Question.belongsTo(Patient);
 
 app.use(express.static('public'));
 app.use(require('express-session')({
@@ -184,7 +172,12 @@ app.post('/login',
     failureRedirect: '/?msg=Login unsuccessful, please check your email and password or if you haven\'t done so, please register.'
   }));
 
-app.post('/register', function(req, res) {
+app.post('/register', function(req, res) {  
+    var first = (req.body.firstname).trim()
+    console.log(first);
+     var firstTrim = first.trim(); 
+     var last = req.body.lastname;
+     var lastTrim = last.trim()
   User.findOne({
     where: {
       email: req.body.email
@@ -194,10 +187,11 @@ app.post('/register', function(req, res) {
       res.redirect("/register?msg=Your email is already registered, please login.");
     } else {
       User.create({
-        lastname: req.body.lastname,
-        firstname: req.body.firstname,
+        lastname: (req.body.lastname).trim(),
+        firstname:  (req.body.firstname).trim(),
         email: req.body.email,
-        password: saltyhash(req.body.password)
+        password: saltyhash(req.body.password),
+        phone:req.body.phone
       }).then(function() {
         res.redirect("/?msg=Thanks for registering, please login.");
       });
@@ -388,22 +382,11 @@ app.get("/searchResults", function(req, res){
  });
 })
 
+app.get("/test", function(req,res){
+  res.render("test")
+})
 
-  // (a = 5 OR a = 6)
-// app.post("/lastNameSearch", function(req, res){
-//  var search = req.body.search;
-//  Patient.findAll({
-//     where: [{
-//       UserId: 1,
-//       firstname: search
-//     }]
-//   }).then(function(results) {
-//     debugger
-//     console.log(results)
-//  });
-// })
-
-connection.sync()
+connection.sync({ force: true })
 app.listen(PORT, function() {
   console.log("Listening on port %s", PORT);
 })
