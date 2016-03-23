@@ -1,4 +1,3 @@
-
 var express = require('express');
 var app = express();
 var expressHandlebars = require('express-handlebars'); 
@@ -22,7 +21,6 @@ app.engine('handlebars', expressHandlebars({
   defaultLayout: 'main'
 }));
 app.set('view engine', 'handlebars');
-
 var hbs = require('express-handlebars').create();
 hbs.getPartials().then(function(partials) {
   console.log(partials);
@@ -39,28 +37,19 @@ if (process.env.NODE_ENV === 'production') {
   var connection = new Sequelize('mmdb', 'root');
 }
 var User = require('./models/User');
-
-
-// var BulkQuestion = connection.define("BulkQuestion", {
-// question:Sequelize.STRING
-// });
-// var Note = connection.define("Note", {
-//   note:Sequelize.STRING,
-// });
-// var Patient = connection.define('Patient', {
-//   firstname: Sequelize.STRING,
-//   lastname: Sequelize.STRING,
-// });
-// var Question = connection.define('Question', {
-//   question: Sequelize.STRING,
-//   answer: Sequelize.STRING
-// });
-// User.hasMany(Patient);
-// Patient.hasMany(Question);
-// Question.hasMany(Note);
-// Note.belongsTo(Question);
-// Patient.belongsTo(User);
-// Question.belongsTo(Patient);
+var Note = require('./models/Note');
+var Patient = require('./models/Patient');
+var PatientComment = require('./models/PatientComment');
+var Question = require('./models/Question');
+var BulkQuestion = require('./models/BulkQuestion');
+Patient.hasMany(PatientComment);
+PatientComments.belongsTo(Patient)
+User.hasMany(Patient);
+Patient.hasMany(Question);
+Question.hasMany(Note);
+Note.belongsTo(Question);
+Patient.belongsTo(User);
+Question.belongsTo(Patient);
 
 app.use(express.static('public'));
 app.use(require('express-session')({
@@ -86,7 +75,6 @@ passport.deserializeUser(function(id, done) {
     username: id
   })
 });
-
 passport.use('local', new LocalStrategy({
     passReqToCallback: true,
     usernameField: 'email',
@@ -146,7 +134,6 @@ app.get('/register', function(req, res) {
     layout: "mainpage.handlebars"
   });
 });
-
 
 app.get('/loggedin', isAuth, function(req, res) {
   User.findAll({
@@ -261,7 +248,6 @@ app.get("/patientQuestionComplete", function(req, res){
 
 app.get("/questionCreate", function(req, res){
   res.render("questionCreate")
-  // res.send("herrro")
 });
 
 app.post("/questionCreate", function(req, res){
@@ -294,7 +280,6 @@ app.get("/showAll", function(req, res){
 
 app.get("/view/:patientId", function(req, res){
 req.session.patientId = req.params.patientId;
-
 console.log(req.session.patientId)
 Patient.findAll({
     where: [{
@@ -348,7 +333,6 @@ app.post("/createNote", function (req, res){
 app.get("/back", function(req, res){
   res.redirect("view/"+req.session.patientId)
 })
-
 // javascript split charAt[9]
 // look at npm moment convert utc
 app.get('/logout', function (req, res){
@@ -360,7 +344,6 @@ app.get('/logout', function (req, res){
 
 app.get("/search", function(req, res){
   res.render("search")
-
 });
 
 app.post("/search", function(req, res){
@@ -369,7 +352,6 @@ app.post("/search", function(req, res){
 });
 
 app.get("/searchResults", function(req, res){
-  debugger
  Patient.findAll({
     order: [
     ['lastname', 'ASC']],
@@ -386,7 +368,7 @@ app.get("/test", function(req,res){
   res.render("test")
 })
 
-connection.sync({ force: true })
+connection.sync({})
 app.listen(PORT, function() {
   console.log("Listening on port %s", PORT);
 })
