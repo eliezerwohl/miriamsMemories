@@ -127,6 +127,7 @@ app.get('/loggedin', isAuth, function(req, res) {
       email: req.user.username
     }]
   }).then(function(User) {
+    req.session.OrganizationId = User[0].dataValues.OrganizationId;
     req.session.firstname = User[0].dataValues.firstname;
     req.session.lastname = User[0].dataValues.lastname;
     req.session.UserId= User[0].dataValues.id
@@ -176,27 +177,22 @@ app.post('/register', function(req, res) {
 });
 })
 app.get('/patientregister', isAuth, function(req, res) {
-  models.User.findAll({
-    where: [{
-      email: req.user.username
-    }]
-  }).then(function(User) {
-    console.log(User)
-    res.render("patientregister", {
-      first: req.body.firstname,
-      last: req.body.lastname,
-      id: req.session.UserId
-    })
+    res.render("patientregister")
   });
-});
 
 app.post('/patientregister', isAuth, function(req, res) {
   models.Patient.create({
     lastname: req.body.lastname,
     firstname: req.body.firstname,
-    UserId: req.session.UserId
+    dob:req.body.dob,
+    phone:req.body.phone,
+    email:req.body.email,
+    address1:req.body.address1,
+    address2:req.body.address2,
+    UserId: req.session.UserId,
+    OrganizationId:req.session.OrganizationId
   }).then(function(data) {
-    req.session.patientId = data.dataValues.id;
+    req.session.PatientId = data.dataValues.id;
     res.redirect("patientquestion/1");
   })
 })
@@ -225,7 +221,8 @@ app.post("/patientquestion/:question/", isAuth, function(req, res) {
   models.Question.create({
     question: req.body.question,
     answer: req.body.answer,
-    PatientId: req.session.patientId
+    PatientId: req.session.PatientId,
+    OrganizationId:req.session.OrganizationId
   }).then(function(data) {
     res.redirect("/patientquestion/" + nextPage + "/");
   })
@@ -241,7 +238,9 @@ app.post("/questionCreate", function(req, res){
   models.Question.create({
     question: req.body.question,
     answer: req.body.answer,
-    PatientId: req.session.patientId 
+    PatientId: req.session.PatientId,
+    UserId:req.session.UserId,
+    OrganizationId:req.session.OrganizationId 
   }).then(function(data) {
   res.redirect("/patientQuestionComplete")
   })
@@ -266,13 +265,13 @@ app.get("/showAll", function(req, res){
 });
 
 app.get("/view/:patientId", function(req, res){
-req.session.patientId = req.params.patientId;
-console.log(req.session.patientId)
+req.session.PatientId = req.params.patientId;
+console.log(req.session.PatientId)
 models.Patient.findAll({
     where: [{
       // using both userid and id to prevent user from rendering a patient that doesn't belong to them
       UserId: req.session.UserId,
-      id:req.session.patientId
+      id:req.session.PatientId
     }]
   }).then(function(results) {
     res.render("patientInfo", {results:results})
@@ -282,7 +281,7 @@ models.Patient.findAll({
 app.get("/patientQa", function(req, res){
 models.Question.findAll({
     where: [{
-      PatientId: req.session.patientId,
+      PatientId: req.session.PatientId,
     }]
   }).then(function(results) {
     console.log(results)
@@ -297,7 +296,7 @@ app.get("/viewNote/:questionId", function (req, res) {
       {model: Note}
       ],
     where: [{
-      PatientId: req.session.patientId,
+      PatientId: req.session.PatientId,
       // using the id so that user can't access a question not linked to thier user
       id:req.session.questionId
     }]
@@ -318,7 +317,7 @@ app.post("/createNote", function (req, res){
 });
 
 app.get("/back", function(req, res){
-  res.redirect("view/"+req.session.patientId)
+  res.redirect("view/"+req.session.PatientId)
 })
 // javascript split charAt[9]
 // look at npm moment convert utc
