@@ -223,7 +223,8 @@ app.post("/patientquestion/:question/", isAuth, function(req, res) {
     question: req.body.question,
     answer: req.body.answer,
     PatientId: req.session.PatientId,
-    OrganizationId:req.session.OrganizationId
+    OrganizationId:req.session.OrganizationId,
+    UserId:req.session.UserId
   }).then(function(data) {
     res.redirect("/patientquestion/" + nextPage + "/");
   })

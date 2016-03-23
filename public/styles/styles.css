@@ -4,11 +4,11 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0; 
 }
 
-.question{
+/*.question{
   color:red;
   width:100px;
 }
-
+*/
 .btn-info, .btn-alert{
  margin-top:30px;
  margin-bottom:10px;
