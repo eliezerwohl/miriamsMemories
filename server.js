@@ -168,7 +168,8 @@ app.post('/register', function(req, res) {
         email: req.body.email,
         password: saltyhash(req.body.password),
         phone:req.body.phone,
-        OrganizationId:orgId
+        OrganizationId:orgId,
+        admin: true
       }).then(function() {
         res.redirect("/?msg=Thanks for registering, please login.");
       });
@@ -222,7 +223,8 @@ app.post("/patientquestion/:question/", isAuth, function(req, res) {
     question: req.body.question,
     answer: req.body.answer,
     PatientId: req.session.PatientId,
-    OrganizationId:req.session.OrganizationId
+    OrganizationId:req.session.OrganizationId,
+    UserId:req.session.UserId
   }).then(function(data) {
     res.redirect("/patientquestion/" + nextPage + "/");
   })
