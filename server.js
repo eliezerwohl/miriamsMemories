@@ -247,22 +247,16 @@ app.post("/questionCreate", function(req, res){
 });
 
 app.get("/showAll", function(req, res){
-  models.User.findAll({
-    where: [{
-      email: req.user.username
-    }]
-  }).then(function(User) {
-    Patient.findAll({
+  models.Patient.findAll({
       order: [
     ['lastname', 'ASC']],
       where:[{
-        UserId:req.session.UserId
+        OrganizationId:req.session.OrganizationId
       }]
     }).then(function(results){
       res.render("showAll", {results:results})
     });
    })
-});
 
 app.get("/view/:patientId", function(req, res){
 req.session.PatientId = req.params.patientId;
@@ -270,7 +264,7 @@ console.log(req.session.PatientId)
 models.Patient.findAll({
     where: [{
       // using both userid and id to prevent user from rendering a patient that doesn't belong to them
-      UserId: req.session.UserId,
+      OrganizationId: req.session.OrganizationId,
       id:req.session.PatientId
     }]
   }).then(function(results) {
@@ -290,15 +284,15 @@ models.Question.findAll({
 });
 
 app.get("/viewNote/:questionId", function (req, res) {
-  req.session.questionId = req.params.questionId;
+  req.session.QuestionId = req.params.questionId;
   models.Question.findAll({
     include: [
-      {model: Note}
+      {model: models.Note}
       ],
     where: [{
-      PatientId: req.session.PatientId,
+      id: req.session.QuestionId,
       // using the id so that user can't access a question not linked to thier user
-      id:req.session.questionId
+      OrganizationId:req.session.OrganizationId
     }]
   }).then(function(results){
     debugger
@@ -309,8 +303,12 @@ app.get("/viewNote/:questionId", function (req, res) {
 
 app.post("/createNote", function (req, res){
   models.Note.create({
-    QuestionId: req.session.questionId,
-    note: req.body.note
+    QuestionId: req.session.QuestionId,
+    note: req.body.note,
+    UserId:req.session.UserId,
+    OrganizationId:req.session.OrganizationId,
+    firstname:req.session.firstname,
+    lastname:req.session.lastname
   }).then(function(data) {
     res.redirect("back")
   });
