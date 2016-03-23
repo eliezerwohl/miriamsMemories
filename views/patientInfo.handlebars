@@ -1,45 +1,30 @@
-<!-- view patient info
+ {{#each results}} 
+<div class="col-md-8 loginPanel">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+        <H3>{{this.firstname}} {{this.lastname}}</H3>
+    </div>
+    <div class="panel-body">
+      <p>Date of Birth:{{this.dob}} </p>
+      <p>Phone Number: {{this.phone}}</p>
 
-view questions
-
-edit answers
-(add new question)
-(edit answer)
-(write a note)
-(logout)
-logout -->
-
-<!-- created a div that is always hidden with css, when page is mobile
-button
- -->
-
-<div class="col-md-6">
-  <div class="">
-  {{#each results}} 
-  <H3>{{this.firstname}} </H3>
-    {{this.dob}}
-   Phone: {{this.phone}}
-   Email {{this.email}}
-    {{/each}}
-
-    All patientdata will go here
-    <br>
-    Dob:
- <br>
-    Phone Number:
- <br>
-    Favorite Snack:
-
-
-
+      <p>Address: {{this.address1}}  </p>
+      <p>{{this.address2}} </p>
+    </div>
+    <div class="panel-footer">
+      <div class="form-group">
+        <input type="text" class="form-control" name="comment">
+           <button type="submit" class="btn btn-lg btn-block btn-primary">Add Comment </button>
+      </div>
+    </div>
   </div>
 </div>
-
-<div class="col-md-6">
+    {{/each}}
+<div class="col-md-4">
   <a href="/patientQa">
-    <div class="col-md-12 btnDiv">
-      <button class="btn btn-info btn-lg btn-block">View Questions and Answers</button>
-    </div>
+  
+      <button class="btn btn-info btn-lg btn-block">View Questions</button>
+  
   </a>
   <h3 class="text-center"> or </h3>
   <a href="/showAll"><div class="col-md-12 btnDiv">
