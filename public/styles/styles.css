@@ -9,8 +9,21 @@ input[type=number]::-webkit-outer-spin-button {
   width:100px;
 }
 */
-.btn-info, .btn-alert{
+
+p{
+  font-size:1.20em;
+}
+
+.btn-xl {
  margin-top:30px;
+ margin-bottom:10px;
+ padding-top:30px ;
+ padding-bottom: 30px;
+ font-size: 1.75em;
+}
+
+.xl {
+
  margin-bottom:10px;
  padding-top:30px ;
  padding-bottom: 30px;
