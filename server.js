@@ -36,20 +36,8 @@ if (process.env.NODE_ENV === 'production') {
   // LOCAL DB
   var connection = new Sequelize('mmdb', 'root');
 }
-var User = require('./models/User');
-var Note = require('./models/Note');
-var Patient = require('./models/Patient');
-var PatientComment = require('./models/PatientComment');
-var Question = require('./models/Question');
-var BulkQuestion = require('./models/BulkQuestion');
-Patient.hasMany(PatientComment);
-PatientComment.belongsTo(Patient)
-User.hasMany(Patient);
-Patient.hasMany(Question);
-Question.hasMany(Note);
-Note.belongsTo(Question);
-Patient.belongsTo(User);
-Question.belongsTo(Patient);
+var models = require("./models/models.js");
+
 
 app.use(express.static('public'));
 app.use(require('express-session')({
@@ -81,7 +69,7 @@ passport.use('local', new LocalStrategy({
     passwordField: "password"
   },
   function(req, email, password, done) {
-    User.findOne({
+    models.User.findOne({
         where: {
           email: email
         }
@@ -136,7 +124,7 @@ app.get('/register', function(req, res) {
 });
 
 app.get('/loggedin', isAuth, function(req, res) {
-  User.findAll({
+  models.User.findAll({
     where: [{
       email: req.user.username
     }]
@@ -165,7 +153,7 @@ app.post('/register', function(req, res) {
      var firstTrim = first.trim(); 
      var last = req.body.lastname;
      var lastTrim = last.trim()
-  User.findOne({
+  models.User.findOne({
     where: {
       email: req.body.email
     }
@@ -173,7 +161,7 @@ app.post('/register', function(req, res) {
     if (results) {
       res.redirect("/register?msg=Your email is already registered, please login.");
     } else {
-      User.create({
+      models.User.create({
         lastname: (req.body.lastname).trim(),
         firstname:  (req.body.firstname).trim(),
         email: req.body.email,
@@ -368,7 +356,7 @@ app.get("/test", function(req,res){
   res.render("test")
 })
 
-connection.sync({})
+connection.sync()
 app.listen(PORT, function() {
   console.log("Listening on port %s", PORT);
 })
