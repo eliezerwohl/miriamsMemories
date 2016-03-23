@@ -37,8 +37,6 @@ if (process.env.NODE_ENV === 'production') {
   var connection = new Sequelize('mmdb', 'root');
 }
 var models = require("./models/models.js");
-
-
 app.use(express.static('public'));
 app.use(require('express-session')({
   secret: "dexterslab",
@@ -147,12 +145,14 @@ app.post('/login',
     failureRedirect: '/?msg=Login unsuccessful, please check your email and password or if you haven\'t done so, please register.'
   }));
 
-app.post('/register', function(req, res) {  
-    var first = (req.body.firstname).trim()
-    console.log(first);
-     var firstTrim = first.trim(); 
-     var last = req.body.lastname;
-     var lastTrim = last.trim()
+app.post('/register', function(req, res) { 
+ models.Organization.create({
+    name: req.body.name
+
+  }).then(function(data) { 
+    debugger
+    console.log(data)
+    var orgId = data.dataValues.id
   models.User.findOne({
     where: {
       email: req.body.email
@@ -166,16 +166,17 @@ app.post('/register', function(req, res) {
         firstname:  (req.body.firstname).trim(),
         email: req.body.email,
         password: saltyhash(req.body.password),
-        phone:req.body.phone
+        phone:req.body.phone,
+        OrganizationId:orgId
       }).then(function() {
         res.redirect("/?msg=Thanks for registering, please login.");
       });
     }
   })
 });
-
+})
 app.get('/patientregister', isAuth, function(req, res) {
-  User.findAll({
+  models.User.findAll({
     where: [{
       email: req.user.username
     }]
@@ -190,7 +191,7 @@ app.get('/patientregister', isAuth, function(req, res) {
 });
 
 app.post('/patientregister', isAuth, function(req, res) {
-  Patient.create({
+  models.Patient.create({
     lastname: req.body.lastname,
     firstname: req.body.firstname,
     UserId: req.session.UserId
@@ -202,14 +203,14 @@ app.post('/patientregister', isAuth, function(req, res) {
 
 app.get("/patientquestion/:number", isAuth, function(req, res) {
   var number= req.params.number;
-  BulkQuestion.findAndCountAll().then(function(result){
+  models.BulkQuestion.findAndCountAll().then(function(result){
     //automatically send the user to the create a question page after all the premade
     //questions have been answered
     if (number > result.count){
       res.redirect("/patientQuestionComplete")
     }
     else{
-       BulkQuestion.findAll({
+       models.BulkQuestion.findAll({
         where: [{
         id: number
         }]
@@ -221,7 +222,7 @@ app.get("/patientquestion/:number", isAuth, function(req, res) {
 });
 app.post("/patientquestion/:question/", isAuth, function(req, res) {
   var nextPage = parseInt(req.params.question) + 1;
-  Question.create({
+  models.Question.create({
     question: req.body.question,
     answer: req.body.answer,
     PatientId: req.session.patientId
@@ -229,17 +230,15 @@ app.post("/patientquestion/:question/", isAuth, function(req, res) {
     res.redirect("/patientquestion/" + nextPage + "/");
   })
 })
-
 app.get("/patientQuestionComplete", function(req, res){
   res.render("patientQuestionComplete")
 });
-
 app.get("/questionCreate", function(req, res){
   res.render("questionCreate")
 });
 
 app.post("/questionCreate", function(req, res){
-  Question.create({
+  models.Question.create({
     question: req.body.question,
     answer: req.body.answer,
     PatientId: req.session.patientId 
@@ -249,7 +248,7 @@ app.post("/questionCreate", function(req, res){
 });
 
 app.get("/showAll", function(req, res){
-  User.findAll({
+  models.User.findAll({
     where: [{
       email: req.user.username
     }]
@@ -269,7 +268,7 @@ app.get("/showAll", function(req, res){
 app.get("/view/:patientId", function(req, res){
 req.session.patientId = req.params.patientId;
 console.log(req.session.patientId)
-Patient.findAll({
+models.Patient.findAll({
     where: [{
       // using both userid and id to prevent user from rendering a patient that doesn't belong to them
       UserId: req.session.UserId,
@@ -281,7 +280,7 @@ Patient.findAll({
 });
 
 app.get("/patientQa", function(req, res){
-Question.findAll({
+models.Question.findAll({
     where: [{
       PatientId: req.session.patientId,
     }]
@@ -293,7 +292,7 @@ Question.findAll({
 
 app.get("/viewNote/:questionId", function (req, res) {
   req.session.questionId = req.params.questionId;
-  Question.findAll({
+  models.Question.findAll({
     include: [
       {model: Note}
       ],
@@ -310,7 +309,7 @@ app.get("/viewNote/:questionId", function (req, res) {
 })
 
 app.post("/createNote", function (req, res){
-  Note.create({
+  models.Note.create({
     QuestionId: req.session.questionId,
     note: req.body.note
   }).then(function(data) {
@@ -340,7 +339,7 @@ app.post("/search", function(req, res){
 });
 
 app.get("/searchResults", function(req, res){
- Patient.findAll({
+ models.Patient.findAll({
     order: [
     ['lastname', 'ASC']],
     where: [{

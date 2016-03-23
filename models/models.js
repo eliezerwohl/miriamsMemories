@@ -40,6 +40,10 @@ var Question = connection.define('Question', {
   answer: Sequelize.STRING
 });
 
+var Organization = connection.define('Organization', {
+  name: Sequelize.STRING,
+ 
+});
 
 var User = connection.define('User', {
   email: {
@@ -52,15 +56,27 @@ var User = connection.define('User', {
   phone:Sequelize.STRING
 
 });
-Patient.hasMany(PatientComment);
-PatientComment.belongsTo(Patient)
+Organization.hasMany(User);
+User.belongsTo(Organization);
+Organization.hasMany(Patient);
+Patient.belongsTo(Organization);
 User.hasMany(Patient);
+Patient.belongsTo(User);
+User.hasMany(PatientComment);
+PatientComment.belongsTo(User);
+Patient.hasMany(PatientComment);
+PatientComment.belongsTo(Patient);
 Patient.hasMany(Question);
+Question.belongsTo(Patient);
+User.hasMany(Question);
+Question.belongsTo(User);
+User.hasMany(Note);
 Question.hasMany(Note);
 Note.belongsTo(Question);
-Patient.belongsTo(User);
-Question.belongsTo(Patient);
+Note.belongsTo(User);
+
 connection.sync();
+exports.Organization=Organization;
 exports.User=User;
 exports.Question=Question;
 exports.PatientComment=PatientComment;
