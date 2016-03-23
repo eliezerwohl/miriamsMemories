@@ -24,8 +24,10 @@ var Patient = connection.define('Patient', {
   firstname: Sequelize.STRING,
   lastname: Sequelize.STRING,
   dob:Sequelize.STRING,
-  phonenumber:Sequelize.STRING,
-  email:Sequelize.STRING
+  phone:Sequelize.STRING,
+  email:Sequelize.STRING,
+  address1:Sequelize.STRING,
+  address2:Sequelize.STRING
 });
 
 
@@ -58,22 +60,32 @@ var User = connection.define('User', {
 });
 Organization.hasMany(User);
 User.belongsTo(Organization);
+
 Organization.hasMany(Patient);
 Patient.belongsTo(Organization);
 User.hasMany(Patient);
 Patient.belongsTo(User);
+
 User.hasMany(PatientComment);
 PatientComment.belongsTo(User);
+Organization.hasMany(PatientComment);
+PatientComment.belongsTo(Organization);
 Patient.hasMany(PatientComment);
 PatientComment.belongsTo(Patient);
+
 Patient.hasMany(Question);
 Question.belongsTo(Patient);
 User.hasMany(Question);
 Question.belongsTo(User);
+Organization.hasMany(Question);
+Question.belongsTo(Organization);
+
 User.hasMany(Note);
+Note.belongsTo(User);
 Question.hasMany(Note);
 Note.belongsTo(Question);
-Note.belongsTo(User);
+Organization.hasMany(Note);
+Note.belongsTo(Organization);
 
 connection.sync();
 exports.Organization=Organization;
