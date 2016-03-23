@@ -55,7 +55,8 @@ var User = connection.define('User', {
   password: Sequelize.STRING,
   firstname: Sequelize.STRING,
   lastname: Sequelize.STRING,
-  phone:Sequelize.STRING
+  phone:Sequelize.STRING,
+  admin:{type:Sequelize.BOOLEAN, default:false}
 
 });
 Organization.hasMany(User);
@@ -86,6 +87,7 @@ Question.hasMany(Note);
 Note.belongsTo(Question);
 Organization.hasMany(Note);
 Note.belongsTo(Organization);
+
 
 connection.sync();
 exports.Organization=Organization;

@@ -168,7 +168,8 @@ app.post('/register', function(req, res) {
         email: req.body.email,
         password: saltyhash(req.body.password),
         phone:req.body.phone,
-        OrganizationId:orgId
+        OrganizationId:orgId,
+        admin: true
       }).then(function() {
         res.redirect("/?msg=Thanks for registering, please login.");
       });
