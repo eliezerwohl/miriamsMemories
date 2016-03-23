@@ -43,7 +43,7 @@ var PatientComment = require('./models/PatientComment');
 var Question = require('./models/Question');
 var BulkQuestion = require('./models/BulkQuestion');
 Patient.hasMany(PatientComment);
-PatientComments.belongsTo(Patient)
+PatientComment.belongsTo(Patient)
 User.hasMany(Patient);
 Patient.hasMany(Question);
 Question.hasMany(Note);

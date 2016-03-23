@@ -8,12 +8,12 @@ if (process.env.NODE_ENV === 'production') {
   // LOCAL DB
   var connection = new Sequelize('mmdb', 'root');
 }
-var Patient = connection.define('Patient', {
-  firstname: Sequelize.STRING,
-  lastname: Sequelize.STRING,
-  dob:Sequelize.STRING,
-  phonenumber:Sequelize.STRING,
-  email:Sequelize.STRING
-});
+
 
 module.exports = Patient;
+
+var PatientComment = connection.define('Question', {
+  firstname: Sequelize.STRING,
+  lastname: Sequelize.STRING,
+  comment:Sequelize.String
+});
