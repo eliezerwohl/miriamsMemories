@@ -121,7 +121,40 @@ app.get('/register', function(req, res) {
   });
 });
 
+app.get("/admin", function(req, res){
+  res.render("admin")
+});
+
+app.get("/adminCreate", function(req, res){
+  res.render("adminCreate")
+});
+
+app.post('/adminCreate', function(req, res) { 
+  models.User.findOne({
+    where: {
+      email: req.body.email
+    }
+  }).then(function(results) {
+    if (results) {
+      res.redirect("/adminCreate?msg=Your email is already registered, please login.");
+    } else {
+      models.User.create({
+        lastname: (req.body.lastname).trim(),
+        firstname:  (req.body.firstname).trim(),
+        email: req.body.email,
+        password: saltyhash(req.body.password),
+        phone:req.body.phone,
+        OrganizationId:req.session.OrganizationId,
+        admin:false 
+      }).then(function() {
+        res.redirect("/admin?msg=You have created a new user!");
+      });
+    }
+  });
+});
+
 app.get('/loggedin', isAuth, function(req, res) {
+
   models.User.findAll({
     where: [{
       email: req.user.username
@@ -130,15 +163,18 @@ app.get('/loggedin', isAuth, function(req, res) {
     req.session.OrganizationId = User[0].dataValues.OrganizationId;
     req.session.firstname = User[0].dataValues.firstname;
     req.session.lastname = User[0].dataValues.lastname;
-    req.session.UserId= User[0].dataValues.id
-    res.render("loggedIn", {
-      msg: req.query.msg,
-      first: req.session.firstname,
-      last: req.session.lastname,
-      User: User
-    })
-  })
-});
+    req.session.UserId= User[0].dataValues.id;
+    req.session.Admin  = User[0].dataValues.admin;
+    
+    console.log(req.session.Admin)
+     if (req.session.Admin==true){
+    res.render("admin");
+  }
+    else{
+    res.render("loggedIn")}
+    });
+  });
+
 
 app.post('/login',
   passport.authenticate('local', {
@@ -149,9 +185,7 @@ app.post('/login',
 app.post('/register', function(req, res) { 
  models.Organization.create({
     name: req.body.name
-
   }).then(function(data) { 
-    debugger
     console.log(data)
     var orgId = data.dataValues.id
   models.User.findOne({
@@ -342,11 +376,11 @@ app.get("/searchResults", function(req, res){
     order: [
     ['lastname', 'ASC']],
     where: [{
-      UserId: req.session.UserId,
+      OrganizationId: req.session.OrganizationId,
      $or: [{firstname: {$like:req.session.search}}, {lastname: {$like: req.session.search}}]
     }]
   }).then(function(results) {
-  res.render("showAll", {results:results})
+  res.render("searchResults", {results:results})
  });
 })
 
