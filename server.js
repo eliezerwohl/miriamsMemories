@@ -115,7 +115,7 @@ app.get('/', function(req, res) {
 
 // register user
 app.get('/register', function(req, res) {
-  res.render("signUP", {
+  res.render("signUp", {
     msg: req.query.msg,
     layout: "mainpage.handlebars"
   });
