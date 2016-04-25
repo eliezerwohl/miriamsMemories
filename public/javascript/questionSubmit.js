@@ -1,20 +1,18 @@
-function questionSubmit(){
-	// debugger
-	//    var answer = $("#answer").val(e)
-	// if (answer = "d" ){
-	// 	 e.preventDefault();
+// function questionSubmit(){
+// 	// debugger
+// 	//    var answer = $("#answer").val(e)
+// 	// if (answer = "d" ){
+// 	// 	 e.preventDefault();
 
-	// }
-	// else{
-	// 	console.log("hit it")
-	// }
-    var name =$(".question").text()
-        $("#question").val(name);
- //   console.log(answer)
+// 	// }
+// 	// else{
+// 	// 	console.log("hit it")
+// 	// }
+//     var name =$(".question").text()
+//         $("#question").val(name);
+//  //   console.log(answer)
 
-}
-
-
+// }
 
 $( "#qa" ).submit(function( event ) {
 	var answer = $("#answer").val()
@@ -23,6 +21,6 @@ $( "#qa" ).submit(function( event ) {
     $("#question").val(name);
     return;
   }
-  alert ("moar letters")
+  $("#warning").show()
   event.preventDefault();
 })
