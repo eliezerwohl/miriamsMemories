@@ -13,6 +13,17 @@
 //  //   console.log(answer)
 
 // }
+$("#createQuestion").submit(function(event){
+	var answer = $("#answer").val()
+	var question = $("#question").val()
+  if (answer.length  > 1 && question.length >1 ) {
+    var name =$(".question").text()
+    $("#question").val(name);
+    return;
+  }
+  $("#warning").show()
+  event.preventDefault();
+})
 
 $( "#qa" ).submit(function( event ) {
 	var answer = $("#answer").val()
