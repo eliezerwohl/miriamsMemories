@@ -7,9 +7,10 @@
       <br>
       <h3> Answer</h3>
       <h4>{{this.answer}} </h4>
-      <form action="/createNote" method="post">
-        <textarea class="form-control" rows="5" name="note"></textarea>
-        <button type="submit" class="btn btn-lg btn-primary btn-block"> add notes</button>
+      <form action="/createNote" id="notes" method="post">
+        <textarea class="form-control" id="newNote" rows="5" name="note"></textarea>
+        <p id="warning"> Please enter all fields before submitting </p>
+        <button type="submit" class="btn btn-lg btn-primary btn-block"> Add Notes</button>
       </form>
     </div>
     <div class="panel-footer">
