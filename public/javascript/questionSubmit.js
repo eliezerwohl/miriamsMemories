@@ -25,6 +25,16 @@ $("#createQuestion").submit(function(event){
   event.preventDefault();
 })
 
+$( "#notes" ).submit(function( event ) {
+	debugger
+	var newNote = $("#newNote").val()
+  if (newNote.length  > 1 ) {
+    return;
+  }
+  $("#warning").show()
+  event.preventDefault();
+})
+
 $( "#qa" ).submit(function( event ) {
 	var answer = $("#answer").val()
   if (answer.length  > 1 ) {
